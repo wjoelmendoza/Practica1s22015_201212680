@@ -5,7 +5,7 @@
  */
 package Practica1;
 
-import constantes.EConstantes;
+import estructura.Matriz;
 
 /**
  *
@@ -14,9 +14,11 @@ import constantes.EConstantes;
 public class Principal {
     
     public static void main(String[] args){
-        System.out.println("hola java");
-        EConstantes a  = EConstantes.CASTILLO;
-        if(a == EConstantes.CASTILLO)
-            System.out.println("es un castillo");
+        Matriz m = new Matriz();
+        m.agregarFila();
+        m.agregarFila();
+        m.agregarColumna();
+        //m.agregarFila();
+        m.graficar();
     }
 }
