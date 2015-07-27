@@ -15,10 +15,10 @@ import java.awt.Graphics2D;
  * @author walter
  */
 public class Objeto implements IDibujar {
-    private String img;
-    private int posX,posY,tamaño;
-    private NodoM nodoInf;
-    private EConstantes tipo;
+    protected String img;
+    protected int posX,posY,tamaño;
+    protected NodoM nodoInf;
+    protected EConstantes tipo;
     
     @Override
     public void dibujar(Graphics2D g2d) {

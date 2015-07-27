@@ -5,7 +5,7 @@
  */
 package Practica1;
 
-import estructura.Matriz;
+import gui.CargaObjetos;
 
 /**
  *
@@ -14,11 +14,19 @@ import estructura.Matriz;
 public class Principal {
     
     public static void main(String[] args){
-        Matriz m = new Matriz();
-        m.agregarFila();
-        m.agregarFila();
-        m.agregarColumna();
-        //m.agregarFila();
-        m.graficar();
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(CargaObjetos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        
+        java.awt.EventQueue.invokeLater(() -> {
+            new CargaObjetos().setVisible(true);
+        });
     }
 }
