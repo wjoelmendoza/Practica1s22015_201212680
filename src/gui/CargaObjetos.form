@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Container class="javax.swing.JPopupMenu" name="jPopupMenu1">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="true"/>
+      </Layout>
+    </Container>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="title" type="java.lang.String" value="Cargar Objetos"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -23,38 +32,336 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
+          <Group type="102" attributes="0">
+              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <Component id="jLayeredPane1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace pref="45" max="32767" attributes="0"/>
+          </Group>
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="82" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="lblKoopa" min="-2" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              </Group>
-              <EmptySpace pref="410" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="69" max="-2" attributes="0"/>
+              <Component id="btnContinuar" min="-2" pref="113" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
+              <Component id="btnVer" min="-2" pref="113" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-              <Component id="lblKoopa" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="70" max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="358" max="32767" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
+              <Component id="jLayeredPane1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="btnContinuar" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnVer" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="lblKoopa">
+    <Container class="javax.swing.JLayeredPane" name="jLayeredPane1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Koopa"/>
+        <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+          <Border info="org.netbeans.modules.form.compat2.border.TitledBorderInfo">
+            <TitledBorder position="2" title="Agregue los elementos a utilizar:">
+              <Border PropertyName="innerBorder" info="org.netbeans.modules.form.compat2.border.EtchedBorderInfo">
+                <EtchetBorder/>
+              </Border>
+            </TitledBorder>
+          </Border>
+        </Property>
       </Properties>
+
+      <Layout>
+        <DimensionLayout dim="0">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                      <Component id="txtMario" max="32767" attributes="0"/>
+                      <Component id="txtKoopa" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="lblMario" max="32767" attributes="0"/>
+                              <Component id="lblKoopa" alignment="1" pref="125" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="lblmname" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblkname" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="btnKoopa" pref="125" max="32767" attributes="0"/>
+                      <Component id="btnMario" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="lblGoomba" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblPared" pref="125" max="32767" attributes="0"/>
+                      <Component id="btnGoomba" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblpname" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblgname" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtGoomba" max="32767" attributes="0"/>
+                      <Component id="txtPared" max="32767" attributes="0"/>
+                      <Component id="btnPared" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="txtFicha" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblfname" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblsname" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblFicha" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblSuelo" alignment="0" pref="125" max="32767" attributes="0"/>
+                      <Component id="btnFicha" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtSuelo" max="32767" attributes="0"/>
+                      <Component id="btnSuelo" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="lblhname" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblHongo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="lblCastillo" pref="125" max="32767" attributes="0"/>
+                      <Component id="lblcname" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnHongo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtHongo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="btnCastillo" alignment="0" max="32767" attributes="0"/>
+                      <Component id="txtCastillo" alignment="0" max="32767" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+        <DimensionLayout dim="1">
+          <Group type="103" groupAlignment="0" attributes="0">
+              <Group type="102" attributes="0">
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
+                          <Component id="lblFicha" max="32767" attributes="0"/>
+                          <Component id="lblGoomba" max="32767" attributes="0"/>
+                          <Component id="lblKoopa" min="-2" pref="127" max="-2" attributes="0"/>
+                      </Group>
+                      <Component id="lblHongo" min="-2" pref="127" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="lblkname" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblgname" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblfname" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblhname" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtKoopa" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtGoomba" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtFicha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtHongo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnKoopa" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnGoomba" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnFicha" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnHongo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="lblPared" max="32767" attributes="0"/>
+                              <Component id="lblMario" min="-2" pref="127" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblmname" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblpname" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="lblCastillo" max="32767" attributes="0"/>
+                              <Component id="lblSuelo" min="-2" pref="127" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblsname" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblcname" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="txtMario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtPared" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSuelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtCastillo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="btnMario" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnPared" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSuelo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnCastillo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace max="32767" attributes="0"/>
+              </Group>
+          </Group>
+        </DimensionLayout>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="btnHongo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agregar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnHongoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblmname">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Mario"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnSuelo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agregar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSueloActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnCastillo">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agregar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCastilloActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblgname">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Goomba"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblGoomba">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblMario">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblkname">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Koopa"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblhname">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Hongo"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblfname">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Ficha"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblKoopa">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblFicha">
+        </Component>
+        <Component class="javax.swing.JButton" name="btnGoomba">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agregar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGoombaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblHongo">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblCastillo">
+        </Component>
+        <Component class="javax.swing.JButton" name="btnFicha">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agregar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFichaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnPared">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agregar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnParedActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblcname">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Castillo"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblSuelo">
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblPared">
+        </Component>
+        <Component class="javax.swing.JButton" name="btnMario">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agregar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMarioActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnKoopa">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Agregar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnKoopaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblsname">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Suelo"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lblpname">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Pared"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtKoopa">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtGoomba">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtFicha">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtHongo">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtMario">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtPared">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtSuelo">
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtCastillo">
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="btnContinuar">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Continuar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnContinuarActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnVer">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Agregar"/>
+        <Property name="text" type="java.lang.String" value="Ver"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnVerActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
