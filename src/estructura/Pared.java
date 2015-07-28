@@ -12,7 +12,9 @@ import constantes.EConstantes;
  * @author walter
  */
 public class Pared extends Objeto {
-    public Pared(){
+    public Pared(String nombre){
         tipo = EConstantes.PARED;
+        this.nombre = nombre;
+        this.img = "/recursos/pared.png";
     }
 }

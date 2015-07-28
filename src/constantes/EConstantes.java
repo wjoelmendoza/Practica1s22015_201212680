@@ -10,22 +10,25 @@ package constantes;
  * @author walter
  */
 public enum EConstantes {
-    SUELO,
-    PARED,
-    GOOMBA,
-    KOOPA,
-    FICHA,
-    HONGO,
-    HEROE,
-    CASTILLO;
+    SUELO(0),
+    PARED(1),
+    GOOMBA(2),
+    KOOPA(3),
+    FICHA(4),
+    HONGO(5),
+    HEROE(6),
+    CASTILLO(7);
     
-    //private final int value;
+    private final int value;
     
-//    EConstantes(int value){
-//        this.value =value;
-//    }
-//    
-//    public int getValue(){
-//        return value;
-//    }
+    EConstantes(int value){
+        this.value =value;
+    }
+    /**
+     * 
+     * @return el valor de la constante asignada
+     */
+    public int getValue(){
+        return value;
+    }
 }

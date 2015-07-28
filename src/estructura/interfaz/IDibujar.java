@@ -6,7 +6,7 @@
 package estructura.interfaz;
 
 import constantes.EConstantes;
-import estructuras.genericas.NodoM;
+import estructura.genericas.NodoM;
 import java.awt.Graphics2D;
 
 /**
@@ -39,4 +39,8 @@ public interface IDibujar {
     public void setNodoInferior(NodoM nodoInferior);
     
     public NodoM getNodoInferior();
+    
+    public String getNombre();
+    
+    public void setNombre(String nombre);
 }

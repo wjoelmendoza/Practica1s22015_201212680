@@ -6,7 +6,7 @@
 package estructura;
 
 import graphViz.GraphViz;
-import estructuras.genericas.NodoM;
+import estructura.genericas.NodoM;
 import java.io.File;
 
 
@@ -29,7 +29,7 @@ public class Matriz {
             Cuadrante cua = new Cuadrante();
             cua.setText("" + i + ",0");
             nuevo = new NodoM(cua);
-            if(fin!=null){
+            if(!vacia()){
                 fin.setSiguiente(nuevo);
                 nuevo.setAnterior(fin);
                 fin = nuevo;
@@ -46,12 +46,12 @@ public class Matriz {
             if(i!=0){
                 fin.setSiguiente(nuevo);
                 nuevo.setAnterior(fin);
-                aux1.setAbajo(nuevo);
-                nuevo.setArriba(aux1);
+                aux1.setArriba(nuevo);
+                nuevo.setAbajo(aux1);
                 fin = nuevo;
             }else{
-                nuevo.setArriba(aux1);
-                aux1.setAbajo(nuevo);
+                nuevo.setAbajo(aux1);
+                aux1.setArriba(nuevo);
                 fin = nuevo;
             }
                 aux1 = aux1.getSiguiente();
@@ -62,29 +62,25 @@ public class Matriz {
     
     public void agregarColumna(){
         NodoM<Cuadrante> aux = fin, aux1;
-        while(aux.getArriba()!=null)
-            aux = aux.getArriba();
-        
-        System.out.println(aux.getElemento().getText());
+        while(aux.getAbajo()!=null)
+            aux = aux.getAbajo();
         
         for(int j =0; j < y; j++){
-            System.out.println(aux.getElemento().getText());
             Cuadrante cua = new Cuadrante();
             cua.setText("" + x + "," + j);
             aux1 = new NodoM(cua);
             if(j != 0){
                 aux.setSiguiente(aux1);
                 aux1.setAnterior(aux);
-                fin.setAbajo(aux1);
-                aux1.setArriba(fin);
+                fin.setArriba(aux1);
+                aux1.setAbajo(fin);
                 fin = aux1;
             }else{
                 aux.setSiguiente(aux1);
                 aux1.setAnterior(aux);
                 fin = aux1;
-                System.out.println(fin.getElemento().getText());
             }
-            aux = aux.getAbajo();
+            aux = aux.getArriba();
         }
         
         x++;
@@ -94,8 +90,8 @@ public class Matriz {
     public void agregarFila(){
         NodoM<Cuadrante> aux = origen,aux1;
         
-        while(aux.getAbajo() != null)
-            aux = aux.getAbajo();
+        while(aux.getArriba() != null)
+            aux = aux.getArriba();
         
         
         for(int i = 0; i < x; i++){
@@ -103,14 +99,14 @@ public class Matriz {
             cua.setText("" + i +"," + y);
             aux1 = new NodoM<>(cua);
             if(i != 0){
-                aux1.setArriba(aux);
-                aux.setAbajo(aux1);
+                aux1.setAbajo(aux);
+                aux.setArriba(aux1);
                 fin.setSiguiente(aux1);
                 aux1.setAnterior(fin);
                 fin = aux1;
             }else{
-                aux1.setArriba(aux);
-                aux.setAbajo(aux1);
+                aux1.setAbajo(aux);
+                aux.setArriba(aux1);
                 fin = aux1;
             }
             
@@ -131,7 +127,7 @@ public class Matriz {
         int i =0;
         gv = new GraphViz();
         gv.add(gv.start_graph());
-        gv.addln("rankdir = TB;");
+        gv.addln("rankdir = BT;");
         gv.addln("rank = same;");
         NodoM<Cuadrante> aux = origen;
         NodoM<Cuadrante> aux2 = origen;
@@ -143,7 +139,7 @@ public class Matriz {
                     i++;
                     aux = aux.getSiguiente();
                 }
-                aux2 = aux2.getAbajo();
+                aux2 = aux2.getArriba();
                 aux = aux2;
             }
             
@@ -183,7 +179,6 @@ public class Matriz {
     
     private void addPunterosAn(){
         int i = x*y - 1;
-        System.out.print("n"+i);
         gv.add("n" + i);
         i--;
         
@@ -241,5 +236,43 @@ public class Matriz {
             gv.add(";n"+s);
             i=s;
         }
+    }
+    
+    public void eliminarFila(){
+        if(origen!=null){
+            NodoM<Cuadrante> aux1,aux2;
+            aux2 = fin.getAbajo();
+            aux1 = fin;
+            fin = aux2;
+            while(aux1 != null){
+                aux1.setAbajo(null);
+                aux2.setArriba(null);
+                aux1 = aux1.getAnterior();
+                aux2 = aux2.getAnterior();
+            }
+            y--;
+        }
+    }
+    
+    public void elimarColumna(){
+        if(origen != null){
+            NodoM<Cuadrante> aux1, aux2;
+            
+            aux1 = fin;
+            aux2 = fin.getAnterior();
+            fin = aux2;
+            while( aux1!= null){
+                aux1.setAnterior(null);
+                aux2.setSiguiente(null);
+                aux1 = aux1.getAbajo();
+                aux2 = aux2.getAbajo();
+            }
+            x--;
+        }
+    }
+    
+    
+    public boolean vacia(){
+        return origen == null;
     }
 }

@@ -7,7 +7,7 @@ package estructura;
 
 import constantes.EConstantes;
 import estructura.interfaz.IDibujar;
-import estructuras.genericas.NodoM;
+import estructura.genericas.NodoM;
 import java.awt.Graphics2D;
 
 /**
@@ -16,6 +16,7 @@ import java.awt.Graphics2D;
  */
 public class Objeto implements IDibujar {
     protected String img;
+    protected String nombre;
     protected int posX,posY,tamaño;
     protected NodoM nodoInf;
     protected EConstantes tipo;
@@ -83,6 +84,16 @@ public class Objeto implements IDibujar {
     @Override
     public NodoM getNodoInferior() {
         return nodoInf;
+    }
+
+    @Override
+    public String getNombre() {
+        return nombre;
+    }
+
+    @Override
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
     
 }

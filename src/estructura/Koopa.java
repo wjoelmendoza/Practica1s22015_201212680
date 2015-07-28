@@ -12,7 +12,9 @@ import constantes.EConstantes;
  * @author walter
  */
 public class Koopa extends Goomba {
-    public Koopa(){
+    public Koopa(String nombre){
+        super(nombre);
         super.tipo = EConstantes.KOOPA;
+        img = "/recursos/tarazan-virusp.png";
     }
 }

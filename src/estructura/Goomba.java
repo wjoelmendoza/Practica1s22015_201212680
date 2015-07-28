@@ -13,8 +13,10 @@ import constantes.EConstantes;
  */
 public class Goomba extends Objeto implements Runnable {
 
-    public Goomba(){
+    public Goomba(String nombre ){
         super.tipo = EConstantes.GOOMBA;
+        this.nombre = nombre;
+        this.img ="/recursos/zendams-cooldeviltux.png";
     }
     
     @Override

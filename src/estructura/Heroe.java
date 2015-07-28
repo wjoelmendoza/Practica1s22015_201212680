@@ -14,8 +14,10 @@ import java.awt.event.KeyListener;
  * @author walter
  */
 public class Heroe extends Objeto implements KeyListener{
-    public Heroe(){
+    public Heroe(String nombre){
         super.tipo = EConstantes.HEROE;
+        this.nombre = nombre;
+        this.img ="/recursos/luap33-sangoku.png";
     }
 
     @Override

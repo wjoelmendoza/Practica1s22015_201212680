@@ -5,6 +5,7 @@
  */
 package Practica1;
 
+import estructura.Matriz;
 import gui.CargaObjetos;
 
 /**
@@ -13,7 +14,7 @@ import gui.CargaObjetos;
  */
 public class Principal {
     
-    public static void main(String[] args){
+    public static void main(String[] args) throws InterruptedException{
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -28,5 +29,21 @@ public class Principal {
         java.awt.EventQueue.invokeLater(() -> {
             new CargaObjetos().setVisible(true);
         });
+//        
+//        Matriz m = new Matriz();
+//        m.agregarFila();
+//        m.agregarFila();
+//        m.agregarFila();
+//        m.agregarColumna();
+//        m.graficar();
+//        Thread.sleep(15000);
+//        m.eliminarFila();
+//        m.elimarColumna();
+//        m.graficar();
+//        Thread.sleep(15000);
+//        m.elimarColumna();
+//        m.agregarColumna();
+//        m.agregarColumna();
+//        m.graficar();
     }
 }

@@ -12,7 +12,9 @@ import constantes.EConstantes;
  * @author walter
  */
 public class Suelo extends Objeto {
-    public Suelo(){
+    public Suelo(String nombre){
         super.tipo = EConstantes.SUELO;
+        this.nombre=nombre;
+        this.img ="/recursos/suelo.png";
     }
 }

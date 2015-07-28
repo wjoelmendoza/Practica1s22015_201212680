@@ -12,8 +12,10 @@ import constantes.EConstantes;
  * @author walter
  */
 public class Castillo extends Objeto{
-    public Castillo(){
+    public Castillo(String nombre){
         super.tipo = EConstantes.CASTILLO;
+        this.nombre = nombre;
+        img ="/recursos/pared1.png";
     }
     
 }

@@ -12,10 +12,13 @@ import constantes.EConstantes;
  * @author walter
  */
 public class Hongo extends Objeto {
-    private int ptsVida;
+    private final int ptsVida;
     
-    public Hongo(){
+    public Hongo(String nombre){
         super.tipo = EConstantes.HONGO;
+        ptsVida = 1;
+        this.nombre = nombre;
+        this.img = "/recursos/hongo2.png";
     }
     
     public int getVida(){
