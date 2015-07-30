@@ -434,7 +434,7 @@ public class CargaObjetos extends javax.swing.JFrame {
 
     private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
         // TODO add your handling code here:
-        Edicion ed =new Edicion();
+        Edicion ed =new Edicion(ld);
         ed.setVisible(true);
     }//GEN-LAST:event_btnVerActionPerformed
 

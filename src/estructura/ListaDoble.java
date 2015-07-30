@@ -8,7 +8,17 @@ package estructura;
 import constantes.EConstantes;
 import estructura.genericas.NodoLD;
 import graphViz.GraphViz;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -16,7 +26,7 @@ import java.io.File;
  */
 public class ListaDoble {
     private NodoLD<Objeto> origen, fin;
-    private int size, suelo,heroe,castillo,goomba,koopa,pared,ficha,hongo;
+    private int size, suelo,heroe,castillo,goomba,koopa,pared,ficha,hongo, y;
     private GraphViz gv;
     
     public ListaDoble(){
@@ -25,6 +35,10 @@ public class ListaDoble {
         goomba = koopa = pared= ficha = hongo =0;
     }
     
+    /**
+     * Este metodo agrega a la lista doblemente enlazada siempre al final de esta
+     * @param elemento 
+     */
     public void agregar(Objeto elemento){
         size++;
         conteoTipo(elemento.tipo,1);
@@ -39,6 +53,62 @@ public class ListaDoble {
         }
     }
     
+    /**
+     * modifica el elemento basandose en la posicion, asignandole el nuevo nombre
+     * @param index posicion del elemento
+     * @param nombre nuevo dato que se le asignara en el atributo nombre al objeto
+     */
+    public void modificar(int index,String nombre){
+        NodoLD<Objeto> aux = origen;
+        for(int i =0; i!= index; i++)
+            aux = aux.getSiguiente();
+        
+        aux.getElemento().setNombre(nombre);
+            
+    }
+    
+    /**
+     * elimina el elemento segun la posicion en la que se encuentra
+     * @param index es la posicion del elemento a eliminar
+     */
+    public void eliminar(int index){
+        
+        int i=0;
+        NodoLD<Objeto> aux = origen , aux1;
+        while(index < i){
+            aux = aux.getSiguiente();
+        }
+        
+        conteoTipo(aux.getElemento().tipo, -1);
+        if(aux.getSiguiente()!= null && aux.getAnterior()!=null){
+            
+            aux1 = aux.getSiguiente();
+            aux.getAnterior().setSiguiente(aux1);
+            aux1.setAnterior(aux.getAnterior());
+        }else if(aux.getAnterior()==null && aux.getSiguiente()!=null){
+            aux1 = aux.getSiguiente();
+            aux1.setAnterior(null);
+            aux.setSiguiente(null);
+            origen = aux1;
+        }else if(aux.getSiguiente()==null&&aux.getAnterior()!=null){
+            aux1 = aux.getAnterior();
+            aux1.setSiguiente(null);
+            aux.setAnterior(null);
+            fin = aux1;
+        }else if(aux.getAnterior()==null && aux.getSiguiente()==null)
+            fin = origen = null;
+        
+    }
+    
+    /**
+     * METODO AUXILIAR
+     * Este metodo es el encargado de incrementar o decrementar la cantidad
+     * de tipos de objeto que ingresan a la lista segun el paramentro de entrada
+     * e y su valor n
+     * @param e este el tipo correspondiente al objeto que esta ingresantdo
+     * @param n es la cantidad de objeto que esta ingresanto si n es positivo se
+     * incrementa y si n es negativo decrementa
+     */
     private void conteoTipo(EConstantes e,int n){
         if(e == EConstantes.CASTILLO){
             castillo += n;
@@ -62,10 +132,18 @@ public class ListaDoble {
         
     }
     
+    /**
+     * Este metodo es utilizado para verificar si la lista esta vacia
+     * @return true si y solo si no existen elementos en la lista
+     */
     public boolean vacia(){
         return origen == null;
     }
     
+    /**
+     * Este metodo es utilizado para generar el reporte utilizando el programa
+     * para graficacion GraphViz 2.38
+     */
     public void grafica(){
         if(!vacia()){
             int i =0;
@@ -109,5 +187,73 @@ public class ListaDoble {
             
         }else
             System.out.println("no existe ningun elemento que graficar");
+    }
+    
+    /**
+     * Este metodo es utilizado para poder mostrar los elementos de la lista en el
+     * panel que esta recibiendo como parametro
+     * @param jpanel 
+     */
+    public void mostrarObj(JPanel jpanel){
+       // GridBagLayout def = new GridBagLayout();
+        //def.
+        
+        jpanel.setLayout(new GridBagLayout());
+        //int y = 0;
+        y=0;
+        GridBagConstraints ct = new GridBagConstraints();
+        NodoLD<Objeto> aux = origen;
+
+        if(aux!=null){
+            while(aux != null){
+                JLabel index = new JLabel();
+                index.setText("" + y);
+                JLabel img = new JLabel();
+                img.setIcon(new ImageIcon(getClass().getResource(aux.getElemento().getImagen())));
+                img.setSize(200, 200);
+                
+                JTextField txtNombre = new JTextField();
+                txtNombre.setSize(125, 50);
+                txtNombre.setText(aux.getElemento().getNombre());
+                JButton btnModificar = new JButton("Modificar");
+                
+                btnModificar.addActionListener((ActionEvent e) -> {
+                    if(!txtNombre.getText().isEmpty()){
+                        modificar(Integer.parseInt(index.getText()),txtNombre.getText());
+                    }else
+                        JOptionPane.showMessageDialog(null , "Verifique que los nombre no esten vacios",
+                                "Error", JOptionPane.ERROR_MESSAGE);
+                });
+                
+                JButton btnEliminar = new JButton("Eliminar");
+                btnEliminar.addActionListener((ActionEvent e) -> {
+                    eliminar(Integer.parseInt(index.getText()));
+                    jpanel.removeAll();
+                    mostrarObj(jpanel);
+                    jpanel.validate();
+                    jpanel.updateUI();
+                    //jpanel.repaint();
+                });
+                
+                
+                ct.ipady = 10;
+                ct.gridx=0;
+                ct.gridy=y;
+                jpanel.add(img,ct);
+                
+                ct.gridx = 1;
+                ct.fill = GridBagConstraints.HORIZONTAL;
+                jpanel.add(txtNombre,ct);
+                
+                ct.gridx=2;
+                ct.fill = GridBagConstraints.NONE;
+                jpanel.add(btnModificar,ct);
+                
+                ct.gridx =3;        
+                jpanel.add(btnEliminar,ct);
+                aux = aux.getSiguiente();
+                y++;
+            }
+        }
     }
 }
