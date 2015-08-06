@@ -434,25 +434,50 @@ public class CargaObjetos extends javax.swing.JFrame {
 
     private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
         // TODO add your handling code here:
-        Edicion ed =new Edicion(ld);
+        Edicion ed =new Edicion(ld,this);
         ed.setVisible(true);
+        System.out.println(ld.vacia());
+       
     }//GEN-LAST:event_btnVerActionPerformed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
         // TODO add your handling code here:
-        ld.grafica();
+        if(ld.getCastillo()==1 && ld.getHeroe()==1){
+            this.setVisible(false);
+            SelecCompor c = new SelecCompor(this, true);
+            c.setVisible(true);
+            if(c.getOper()){
+                System.out.println("hecho");
+                System.exit(0);
+            }else{
+                System.out.println(c.getOper());
+                this.setVisible(true);
+            }
+            
+        }else
+          JOptionPane.showMessageDialog(this, "Debe agrear el castillo y el heroe para continuar"
+                  , "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_btnContinuarActionPerformed
 
     
     private void msjError(JLabel lbl){
         JOptionPane.showMessageDialog(this,"Debe agregarle un nombre al elemento:\n" 
-                                        +lbl.getText()+" que se esta agregando","Error",JOptionPane.ERROR_MESSAGE );
+                                        +lbl.getText()+" que se esta agregando","Error"
+                ,JOptionPane.ERROR_MESSAGE );
     }
     
     private boolean vacio(JTextField txt){
         return txt.getText().isEmpty();
     }
    
+    public void habilitarCastillo(boolean val){
+        btnCastillo.setEnabled(val);
+    }
+    
+    public void habilitarMario(boolean val){
+        btnMario.setEnabled(val);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCastillo;
     private javax.swing.JButton btnContinuar;

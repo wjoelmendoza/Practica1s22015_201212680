@@ -19,7 +19,9 @@ public class Matriz {
     private int y;
     private int x;
     private GraphViz gv;
-    
+    /**
+     * construye una matriz de 2 filas y 4 columnas
+     */
     public Matriz(){
         y = 2;
         x= 4;
@@ -59,7 +61,10 @@ public class Matriz {
         
     }
     
-    
+    /**
+     * Este metodo agrega una columna a la derecha de la ultima columna que se 
+     * encuentra actualmente en la matris con las y filas que se encuentren en esta
+     */
     public void agregarColumna(){
         NodoM<Cuadrante> aux = fin, aux1;
         while(aux.getAbajo()!=null)
@@ -87,6 +92,11 @@ public class Matriz {
         
     }
     
+    /**
+     * Este metodo agrega una fila mas sobre la ultima fila que se encuentre 
+     * actualmente en la matriz, con x columnas que se encuentre dentro de esta
+     * 
+     */
     public void agregarFila(){
         NodoM<Cuadrante> aux = origen,aux1;
         
@@ -114,15 +124,27 @@ public class Matriz {
         }
         y++;
     }
-    
+    /**
+     *
+     * @return El tamaño de la matriz en x
+     */
     public int getX(){
         return x;
     }
     
+    /**
+     * 
+     * @return El tamaño de la matriz en el eje y
+     */
     public int getY(){
         return y;
     }
     
+    
+    /**
+     * Este metodo se encarga de graficar con GraphViz como se encuentra
+     * estructurada la matriz al momento de llamar este metodo
+     */
     public void graficar(){
         int i =0;
         gv = new GraphViz();
@@ -154,7 +176,9 @@ public class Matriz {
         File ext = new File("Matriz.gif");
         gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), "gif"), ext);
     }
-    
+    /**
+     * metodo auxiliar que agrega los punteros siguientes en la grafica
+     */
     private void addPunterosSi(){
         int i = 0;
         for(int j = 0; j < y; j++){
@@ -176,7 +200,9 @@ public class Matriz {
             gv.addln(";}");
         }
     }
-    
+    /**
+     * metodo auxiliar que agrega los punteros anteriores a la grafica
+     */
     private void addPunterosAn(){
         int i = x*y - 1;
         gv.add("n" + i);
@@ -198,6 +224,9 @@ public class Matriz {
         
     }
     
+    /**
+     *metodo auxiliar que agrega los punteros hacia abajo de los nodos en la grafica
+     */
     private void addPunterosAb(){
         int i =0, s = 0;
         gv.add(";n0");
@@ -217,6 +246,9 @@ public class Matriz {
         }
     }
     
+    /**
+     * metodo auxiliar que agrega los punteros hacia arriba de los nodos en la grafica
+     */
     private void addPunterosAr(){
         int i,s;
         i = x*y - 1;
@@ -238,8 +270,11 @@ public class Matriz {
         }
     }
     
-    public void eliminarFila(){
-        if(origen!=null){
+    /**
+     * metodo auxiliar que elimina la ultima fila
+     */
+    private void eliminarUFila(){
+        if(!vacia()){
             NodoM<Cuadrante> aux1,aux2;
             aux2 = fin.getAbajo();
             aux1 = fin;
@@ -254,8 +289,57 @@ public class Matriz {
         }
     }
     
-    public void elimarColumna(){
-        if(origen != null){
+   /**
+    *metodo auxiliar que elimina la primera fila
+    */
+    private void eliminarPFila(){
+        
+        NodoM<Cuadrante> aux, aux1;
+        aux = origen;
+        aux1 = aux.getSiguiente();
+        origen = aux;
+        
+        while( aux != null ){
+            
+            aux.setSiguiente(null);
+            aux1.setAnterior(null);
+            aux = aux.getArriba();
+            aux1 = aux.getArriba();
+        }
+        
+        y--;
+    }
+    
+    /**
+     * elimina la fila i-1
+     * @param i representa graficamente el valor de la fila
+     */
+    private void eliinarIFila(int i){
+        NodoM<Cuadrante> aux, aux1;
+        aux = origen;
+        
+        for(int j = 0; j < i ; j++)
+            aux = aux.getArriba();
+        
+        aux1 = aux.getArriba();
+        
+        while(aux != null){
+            aux1.setAbajo(aux.getAbajo());
+            aux.getAbajo().setArriba(aux1);
+            aux.setAbajo(null);
+            aux.setArriba(null);
+            aux = aux.getSiguiente();
+            aux1 = aux1.getSiguiente();
+        }
+        
+        y--;
+    }
+    
+    /**
+     *metodo auxiliar que elimina la ultima columna
+     */
+    private void elimarUColumna(){
+        if( !vacia()){
             NodoM<Cuadrante> aux1, aux2;
             
             aux1 = fin;
@@ -271,8 +355,83 @@ public class Matriz {
         }
     }
     
+    /**
+     * metodo auxiliar que elimina la primera columna
+     */
+    private void eliminarPColumna(){
+        if(!vacia()){
+            NodoM<Cuadrante> aux1,aux2;
+            aux1 = origen;
+            aux2 = origen.getSiguiente();
+            origen = aux2;
+            while(aux1!=null){
+                aux1.setSiguiente(null);
+                aux2.setAnterior(null);
+                aux1 = aux1.getArriba();
+                aux2 = aux2.getArriba();
+            }
+            
+            x--;
+        }
+    }
     
+    /**
+     * metodo auxiliar que elimina la columna i-1
+     */
+    private void eliminarIColumna(int i ){
+        
+        NodoM<Cuadrante> aux1 = origen, aux2;
+        
+        for(int j=0; j<i; i++)
+            aux1 = aux1.getSiguiente();
+        
+        aux2 = aux1.getSiguiente();
+        
+        while(aux1!=null){
+            aux1.getAnterior().setSiguiente(aux2);
+            aux2.setAnterior(aux1.getAnterior());
+            aux1.setSiguiente(null);
+            aux1.setAnterior(null);
+            aux1 = aux1.getArriba();
+            aux2 = aux2.getArriba();
+        }
+        
+        x--;
+                 
+    }
+    
+    /**
+     * verifica si la matriz esta vacia y
+     * @return true si la lista no tienen ningun elemento false en otro caso
+     */
     public boolean vacia(){
         return origen == null;
+    }
+    
+    /**
+     * elimina la columna indice - 1
+     * @param indice que se le da graficamente a la columna
+     */
+    public void eliminarColumna(int indice){
+        if(indice == 1)
+            eliminarPColumna();
+        else if(x-1 == indice)
+            this.elimarUColumna();
+        else if(indice > 1 && indice < x-1)
+            eliminarIColumna(indice);
+        else 
+            System.err.println("No existe la columna con indice " + indice);
+    }
+    
+    public void eliminarFila(int indice){
+        if(indice == 1)
+            eliminarPFila();
+        else if(indice == x-1)
+            eliminarUFila();
+        else if(indice > 1 && indice < x-1)
+            this.eliinarIFila(indice);
+        else
+            System.err.println("No existe la final con indice " + indice);
+        
     }
 }

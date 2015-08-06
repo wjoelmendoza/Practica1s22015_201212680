@@ -11,7 +11,7 @@ import graphViz.GraphViz;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+//import java.awt.event.ActionListener;
 import java.io.File;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -28,6 +28,7 @@ public class ListaDoble {
     private NodoLD<Objeto> origen, fin;
     private int size, suelo,heroe,castillo,goomba,koopa,pared,ficha,hongo, y;
     private GraphViz gv;
+    private boolean cola;
     
     public ListaDoble(){
         origen = fin = null;
@@ -256,4 +257,78 @@ public class ListaDoble {
             }
         }
     }
+    
+    /**
+     * El parametro recibido determina el comportamiento de extraccion
+     * @param cola si el valor es true la lista se convierte en una cola 
+     * si es false la lista se convierte en una pila
+     */
+    public void setComportamiento(boolean cola){
+        this.cola = cola;
+    }
+    
+    /**
+     *  el valor de retorno esta directamente relacionado con el valor de la
+     * variable booleana cola si esta esta es true
+     * @return el ultimo elemento de la lista sino el primero 
+     * siempre y cuando la lista no este vacia
+     * 
+     */
+    public Objeto extraerElemento(){
+        NodoLD<Objeto> aux;
+        if(cola && !vacia()){
+            aux = fin;
+            if(aux.getAnterior()!= null){
+                fin = aux.getAnterior();
+                fin.setSiguiente(null);
+                aux.setAnterior(null);
+            }else
+                fin=origen=null;
+            
+            return aux.getElemento();
+            
+        }else if(!vacia()){
+            aux = origen;
+            
+            if(aux.getSiguiente() != null){
+                origen = aux.getSiguiente();
+                origen.setAnterior(null);
+                aux.setSiguiente(null);
+            }else{
+                origen = fin = null;
+            }
+            
+            return aux.getElemento();
+        }
+            
+        return null;
+    }
+    
+    
+    /**
+     * Esta directamente relaciona con el valor de la variable booleana cola
+     * si el valor de esta variable es true entonces
+     * @return el ultimo elemento de la lista pero no lo elimina de esta, en caso la 
+     * variable se false retorna el primer elemento de la lista pero no se elimina
+     * de esta, si la lista se encuentra vacia retorna null
+     */
+    public Objeto preView(){
+        
+        if(cola && !vacia()){
+           return fin.getElemento();
+        }else if(!vacia()){
+            return origen.getElemento();
+        }
+        
+        return null;
+    }
+
+    public int getCastillo(){
+        return castillo;
+    }
+    
+    public int getHeroe(){
+        return heroe;
+    }
+            
 }
