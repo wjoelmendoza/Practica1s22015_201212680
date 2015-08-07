@@ -76,7 +76,8 @@ public class ListaDoble {
         
         int i=0;
         NodoLD<Objeto> aux = origen , aux1;
-        while(index < i){
+        while(index != i){
+            i++;
             aux = aux.getSiguiente();
         }
         
@@ -154,7 +155,7 @@ public class ListaDoble {
             NodoLD<Objeto> aux = origen;
 
             while(aux != null){
-                gv.addln("n"+i+"[ label= \"" + aux.getElemento().getTipo().getValue() +"\"];");
+                gv.addln("n"+i+"[ label= \""+aux.getElemento().getNombre()+"\n" + aux.getElemento().getTipo().getValue() +"\"];");
                 aux = aux.getSiguiente();
                 i++;
             }
@@ -228,10 +229,11 @@ public class ListaDoble {
                 
                 JButton btnEliminar = new JButton("Eliminar");
                 btnEliminar.addActionListener((ActionEvent e) -> {
+                    System.out.println(index.getText());
                     eliminar(Integer.parseInt(index.getText()));
                     jpanel.removeAll();
                     mostrarObj(jpanel);
-                    jpanel.validate();
+                    //jpanel.validate();
                     jpanel.updateUI();
                     //jpanel.repaint();
                 });
@@ -315,9 +317,12 @@ public class ListaDoble {
     public Objeto preView(){
         
         if(cola && !vacia()){
-           return fin.getElemento();
+           System.out.println(origen.getElemento().getImagen());
+           return origen.getElemento();
+           
         }else if(!vacia()){
-            return origen.getElemento();
+            System.out.println(fin.getElemento().getImagen());
+            return fin.getElemento();
         }
         
         return null;

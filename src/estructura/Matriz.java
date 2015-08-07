@@ -293,21 +293,26 @@ public class Matriz {
     *metodo auxiliar que elimina la primera fila
     */
     private void eliminarPFila(){
+        if(y>1){
+            NodoM<Cuadrante> aux, aux1;
+            aux = origen;
+            aux1 = aux.getSiguiente();
+            origen = aux;
         
-        NodoM<Cuadrante> aux, aux1;
-        aux = origen;
-        aux1 = aux.getSiguiente();
-        origen = aux;
-        
-        while( aux != null ){
+            while( aux != null ){
             
-            aux.setSiguiente(null);
-            aux1.setAnterior(null);
-            aux = aux.getArriba();
-            aux1 = aux.getArriba();
-        }
+                aux.setSiguiente(null);
+                aux1.setAnterior(null);
+                aux = aux.getArriba();
+                aux1 = aux.getArriba();
+            }
         
-        y--;
+            y--;
+        }else{
+            y--;
+            origen = fin = null;
+        }
+            
     }
     
     /**
@@ -359,7 +364,7 @@ public class Matriz {
      * metodo auxiliar que elimina la primera columna
      */
     private void eliminarPColumna(){
-        if(!vacia()){
+        if(x>1){
             NodoM<Cuadrante> aux1,aux2;
             aux1 = origen;
             aux2 = origen.getSiguiente();
@@ -372,6 +377,8 @@ public class Matriz {
             }
             
             x--;
+        }else{
+            origen = fin = null;
         }
     }
     
@@ -382,8 +389,10 @@ public class Matriz {
         
         NodoM<Cuadrante> aux1 = origen, aux2;
         
-        for(int j=0; j<i; i++)
+        for(int j=0; j < i-1; j++){
             aux1 = aux1.getSiguiente();
+            System.out.println(j);
+        }
         
         aux2 = aux1.getSiguiente();
         
@@ -413,11 +422,12 @@ public class Matriz {
      * @param indice que se le da graficamente a la columna
      */
     public void eliminarColumna(int indice){
+        
         if(indice == 1)
             eliminarPColumna();
-        else if(x-1 == indice)
+        else if(x == indice)
             this.elimarUColumna();
-        else if(indice > 1 && indice < x-1)
+        else if(indice > 1 && indice < x)
             eliminarIColumna(indice);
         else 
             System.err.println("No existe la columna con indice " + indice);
@@ -426,9 +436,9 @@ public class Matriz {
     public void eliminarFila(int indice){
         if(indice == 1)
             eliminarPFila();
-        else if(indice == x-1)
+        else if(indice == x)
             eliminarUFila();
-        else if(indice > 1 && indice < x-1)
+        else if(indice > 1 && indice < x)
             this.eliinarIFila(indice);
         else
             System.err.println("No existe la final con indice " + indice);

@@ -6,15 +6,46 @@
 
 package gui;
 
+import estructura.ListaDoble;
+import estructura.Matriz;
+import estructura.Objeto;
+import java.awt.Cursor;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.UnsupportedFlavorException;
+import java.awt.dnd.DnDConstants;
+import java.awt.dnd.DragGestureEvent;
+import java.awt.dnd.DragGestureListener;
+import java.awt.dnd.DragSource;
+import java.awt.dnd.DropTarget;
+import java.awt.dnd.DropTargetAdapter;
+import java.awt.dnd.DropTargetDropEvent;
+import java.awt.dnd.DropTargetListener;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JPanel;
+
 /**
  *
  * @author walter
  */
 public class CreacionTablero extends javax.swing.JFrame {
+    DataFlavor dataFlavor = new DataFlavor(Objeto.class, Objeto.class.getSimpleName());
+    PanelTablero ptb;
+    PanelView pv;
+    ListaDoble ld;
+    Matriz m = new Matriz();
 
-    /** Creates new form CreacionTablero */
-    public CreacionTablero() {
+    /** Creates new form CreacionTablero
+     * @param ld */
+    public CreacionTablero(ListaDoble ld) {
         initComponents();
+        this.ld = ld;
+        pv = new PanelView(this.ld);
+        ptb = new PanelTablero(ld);
+        this.add(ptb);
+        this.lypSig.add(pv);
     }
 
     /** This method is called from within the constructor to
@@ -29,105 +60,223 @@ public class CreacionTablero extends javax.swing.JFrame {
         btnGraficar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         btnDatos = new javax.swing.JButton();
-        jLayeredPane1 = new javax.swing.JLayeredPane();
-        jPanel1 = new javax.swing.JPanel();
+        lypSig = new javax.swing.JLayeredPane();
         lbltPreview = new javax.swing.JLabel();
+        btnAddColumna = new javax.swing.JButton();
+        btnAddFila = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnGraficar.setText("Graficar");
+        btnGraficar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGraficarActionPerformed(evt);
+            }
+        });
 
         btnEliminar.setText("Eliminar");
+        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarActionPerformed(evt);
+            }
+        });
 
         btnDatos.setText("Datos");
         btnDatos.setMaximumSize(new java.awt.Dimension(90, 25));
         btnDatos.setMinimumSize(new java.awt.Dimension(90, 25));
         btnDatos.setPreferredSize(new java.awt.Dimension(90, 25));
 
-        jLayeredPane1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jPanel1.setPreferredSize(new java.awt.Dimension(75, 75));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
+        lypSig.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         lbltPreview.setText("Siguiente:");
 
-        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
-        jLayeredPane1.setLayout(jLayeredPane1Layout);
-        jLayeredPane1Layout.setHorizontalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+        javax.swing.GroupLayout lypSigLayout = new javax.swing.GroupLayout(lypSig);
+        lypSig.setLayout(lypSigLayout);
+        lypSigLayout.setHorizontalGroup(
+            lypSigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(lypSigLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(lbltPreview)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(99, 99, 99))
         );
-        jLayeredPane1Layout.setVerticalGroup(
-            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jLayeredPane1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jLayeredPane1Layout.createSequentialGroup()
-                .addContainerGap()
+        lypSigLayout.setVerticalGroup(
+            lypSigLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lypSigLayout.createSequentialGroup()
+                .addGap(34, 34, 34)
                 .addComponent(lbltPreview)
                 .addGap(43, 43, 43))
         );
-        jLayeredPane1.setLayer(jPanel1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        jLayeredPane1.setLayer(lbltPreview, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        lypSig.setLayer(lbltPreview, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        btnAddColumna.setText("+Columna");
+        btnAddColumna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddColumnaActionPerformed(evt);
+            }
+        });
+
+        btnAddFila.setText("+Fila");
+        btnAddFila.setMaximumSize(new java.awt.Dimension(105, 25));
+        btnAddFila.setMinimumSize(new java.awt.Dimension(105, 25));
+        btnAddFila.setPreferredSize(new java.awt.Dimension(105, 25));
+        btnAddFila.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddFilaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(btnGraficar)
-                .addGap(18, 18, 18)
-                .addComponent(btnEliminar)
-                .addGap(18, 18, 18)
-                .addComponent(btnDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 375, Short.MAX_VALUE)
-                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(btnGraficar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 454, Short.MAX_VALUE)
+                        .addComponent(lypSig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAddFila, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnAddColumna)
+                .addGap(125, 125, 125))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lypSig, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnEliminar)
                             .addComponent(btnGraficar))))
-                .addContainerGap(680, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnAddColumna)
+                .addGap(25, 25, 25)
+                .addComponent(btnAddFila, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(605, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGraficarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGraficarActionPerformed
+        // TODO add your handling code here:
+        ld.grafica();
+        m.graficar();
+    }//GEN-LAST:event_btnGraficarActionPerformed
+
+    private void btnAddColumnaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddColumnaActionPerformed
+        // TODO add your handling code here:
+        m.agregarColumna();
+    }//GEN-LAST:event_btnAddColumnaActionPerformed
+
+    private void btnAddFilaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFilaActionPerformed
+        // TODO add your handling code here:
+        m.agregarFila();
+    }//GEN-LAST:event_btnAddFilaActionPerformed
+
+    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
+        // TODO add your handling code here:
+        Eliminar el = new Eliminar(this,true,m);
+        el.setVisible(true);
+    }//GEN-LAST:event_btnEliminarActionPerformed
+
    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddColumna;
+    private javax.swing.JButton btnAddFila;
     private javax.swing.JButton btnDatos;
     private javax.swing.JButton btnEliminar;
     private javax.swing.JButton btnGraficar;
-    private javax.swing.JLayeredPane jLayeredPane1;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbltPreview;
+    private javax.swing.JLayeredPane lypSig;
     // End of variables declaration//GEN-END:variables
 
+    class TransferableObjeto implements Transferable {
+        private Objeto objeto;
+   
+
+        public TransferableObjeto(Objeto objeto) {
+            this.objeto = objeto;
+        }
+
+        @Override
+        public DataFlavor[] getTransferDataFlavors() {
+            return new DataFlavor[]{dataFlavor};
+        }
+
+        @Override
+        public boolean isDataFlavorSupported(DataFlavor flavor) {
+            return flavor.equals(dataFlavor);
+        }
+    
+        @Override
+        public Object getTransferData(DataFlavor flavor) throws UnsupportedFlavorException, IOException {
+            if(flavor.equals(dataFlavor))
+                return objeto;
+            else
+                throw new UnsupportedFlavorException(flavor);
+        }
+    
+    }
+
+    class DragGestureList implements DragGestureListener {
+    
+
+        @Override
+        public void dragGestureRecognized(DragGestureEvent dge) {
+            Cursor cursor = null;
+            PanelView pv = (PanelView) dge.getComponent();
+        
+            if(dge.getDragAction() == DnDConstants.ACTION_COPY)
+                cursor = DragSource.DefaultMoveDrop;
+        
+            Objeto obj = pv.getObjeto();
+            dge.startDrag(cursor, new TransferableObjeto(obj));
+        }
+    
+    }
+    
+    public class DropTargetList extends DropTargetAdapter implements DropTargetListener {
+    private DropTarget dropTarget;
+   // private JPanel origen;
+    private JPanel dest;
+    DataFlavor dataFlavor;
+    //private JFrame contenedor;
+    
+    public DropTargetList(JPanel dest, DataFlavor dataFlavor){
+        this.dest = dest;
+        this.dataFlavor =new DataFlavor();
+        dropTarget = new DropTarget(dest, DnDConstants.ACTION_COPY,this,true,null);
+        
+    }
+
+    @Override
+    public void drop(DropTargetDropEvent dtde) {
+    //    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        try {
+            Transferable tr = dtde.getTransferable();
+        
+            Objeto obj = (Objeto) tr.getTransferData(dataFlavor);
+            System.out.println(obj.getNombre());
+        } catch (UnsupportedFlavorException | IOException ex) {
+            dtde.rejectDrop();
+            Logger.getLogger(DropTargetList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   
+        }
+    }
 }

@@ -447,8 +447,10 @@ public class CargaObjetos extends javax.swing.JFrame {
             SelecCompor c = new SelecCompor(this, true);
             c.setVisible(true);
             if(c.getOper()){
-                System.out.println("hecho");
-                System.exit(0);
+                CreacionTablero ctb= new CreacionTablero(ld);
+                System.out.println(c.getCola());
+                ld.setComportamiento(c.getCola());
+                ctb.setVisible(true);
             }else{
                 System.out.println(c.getOper());
                 this.setVisible(true);
