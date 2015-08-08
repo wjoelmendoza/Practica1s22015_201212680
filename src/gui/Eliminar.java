@@ -26,12 +26,16 @@ public class Eliminar extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.m = m;
-        spm = new SpinnerNumberModel();
+        
     }
     
     private void changeModel(int max){
-        spm = new SpinnerNumberModel(1,1,max,1);
-        jspNumero.setModel(spm);
+        if(max != 0){
+            jspNumero.setEnabled(true);
+            spm = new SpinnerNumberModel(1,1,max,1);
+            jspNumero.setModel(spm);
+        }else
+            jspNumero.setEnabled(false);
     }
 
     /**

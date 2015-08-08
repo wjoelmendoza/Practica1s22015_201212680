@@ -42,10 +42,14 @@ public class CreacionTablero extends javax.swing.JFrame {
     public CreacionTablero(ListaDoble ld) {
         initComponents();
         this.ld = ld;
+        DragSource ds = new DragSource();
+        ds.createDefaultDragGestureRecognizer(pv, DnDConstants.ACTION_COPY, new DragGestureList());
         pv = new PanelView(this.ld);
         ptb = new PanelTablero(ld);
         this.add(ptb);
+        new DropTargetList(ptb);
         this.lypSig.add(pv);
+       
     }
 
     /** This method is called from within the constructor to
@@ -254,12 +258,12 @@ public class CreacionTablero extends javax.swing.JFrame {
     private DropTarget dropTarget;
    // private JPanel origen;
     private JPanel dest;
-    DataFlavor dataFlavor;
+    
     //private JFrame contenedor;
     
-    public DropTargetList(JPanel dest, DataFlavor dataFlavor){
+    public DropTargetList(JPanel dest){
         this.dest = dest;
-        this.dataFlavor =new DataFlavor();
+    
         dropTarget = new DropTarget(dest, DnDConstants.ACTION_COPY,this,true,null);
         
     }

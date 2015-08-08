@@ -66,29 +66,49 @@ public class Matriz {
      * encuentra actualmente en la matris con las y filas que se encuentren en esta
      */
     public void agregarColumna(){
-        NodoM<Cuadrante> aux = fin, aux1;
-        while(aux.getAbajo()!=null)
-            aux = aux.getAbajo();
+        if(!vacia()){
+            if( y > 0){
+                NodoM<Cuadrante> aux = fin, aux1;
+                while(aux.getAbajo()!=null)
+                    aux = aux.getAbajo();
         
-        for(int j =0; j < y; j++){
-            Cuadrante cua = new Cuadrante();
-            cua.setText("" + x + "," + j);
-            aux1 = new NodoM(cua);
-            if(j != 0){
-                aux.setSiguiente(aux1);
-                aux1.setAnterior(aux);
-                fin.setArriba(aux1);
-                aux1.setAbajo(fin);
-                fin = aux1;
+                for(int j =0; j < y; j++){
+                    Cuadrante cua = new Cuadrante();
+                    cua.setText("" + x + "," + j);
+                    aux1 = new NodoM(cua);
+                    if(j != 0){
+                        aux.setSiguiente(aux1);
+                        aux1.setAnterior(aux);
+                        fin.setArriba(aux1);
+                        aux1.setAbajo(fin);
+                        fin = aux1;
+                    }else{
+                        aux.setSiguiente(aux1);
+                        aux1.setAnterior(aux);
+                        fin = aux1;
+                    }
+                    aux = aux.getArriba();
+                }
+                
+                x++;
             }else{
-                aux.setSiguiente(aux1);
-                aux1.setAnterior(aux);
-                fin = aux1;
+                x++;
+                Cuadrante nuevo = new Cuadrante();
+                nuevo.setText(x+"," + 0);
+                NodoM<Cuadrante> cua =new NodoM<>(nuevo);
+                cua.setAnterior(fin);
+                fin.setSiguiente(cua);
+                fin = cua;
+                
             }
-            aux = aux.getArriba();
+        }else{
+            x++;
+            y++;
+            Cuadrante nuevo = new Cuadrante();
+            nuevo.setText("0,0");
+            NodoM<Cuadrante> nu = new NodoM<>(nuevo);
+            origen = fin = nu;
         }
-        
-        x++;
         
     }
     
@@ -98,31 +118,50 @@ public class Matriz {
      * 
      */
     public void agregarFila(){
-        NodoM<Cuadrante> aux = origen,aux1;
+        if(!vacia()){
+            if(x>0){
+                NodoM<Cuadrante> aux = origen,aux1;
         
-        while(aux.getArriba() != null)
-            aux = aux.getArriba();
+                while(aux.getArriba() != null)
+                    aux = aux.getArriba();
         
-        
-        for(int i = 0; i < x; i++){
-            Cuadrante cua = new Cuadrante();
-            cua.setText("" + i +"," + y);
-            aux1 = new NodoM<>(cua);
-            if(i != 0){
-                aux1.setAbajo(aux);
-                aux.setArriba(aux1);
-                fin.setSiguiente(aux1);
-                aux1.setAnterior(fin);
-                fin = aux1;
-            }else{
-                aux1.setAbajo(aux);
-                aux.setArriba(aux1);
-                fin = aux1;
-            }
+                for(int i = 0; i < x; i++){
+                    Cuadrante cua = new Cuadrante();
+                    cua.setText("" + i +"," + y);
+                    aux1 = new NodoM<>(cua);
+                    if(i != 0){
+                        aux1.setAbajo(aux);
+                        aux.setArriba(aux1);
+                        fin.setSiguiente(aux1);
+                        aux1.setAnterior(fin);
+                        fin = aux1;
+                    }else{
+                        aux1.setAbajo(aux);
+                        aux.setArriba(aux1);
+                        fin = aux1;
+                    }
             
-            aux = aux.getSiguiente();
+                    aux = aux.getSiguiente();
+                }
+            
+                y++;
+            }else{
+                y++;
+                Cuadrante nuevo = new Cuadrante();
+                nuevo.setText(0+"," + y);
+                NodoM<Cuadrante> cua =new NodoM<>(nuevo);
+                cua.setAbajo(fin);
+                fin.setArriba(cua);
+                fin = cua;
+            }
+        }else{
+            y++;
+            x++;
+            Cuadrante nuevo = new Cuadrante();
+            nuevo.setText("0,0");
+            NodoM<Cuadrante> nu = new NodoM<>(nuevo);
+            origen = fin = nu;
         }
-        y++;
     }
     /**
      *
@@ -293,23 +332,24 @@ public class Matriz {
     *metodo auxiliar que elimina la primera fila
     */
     private void eliminarPFila(){
-        if(y>1){
+        if(y > 1){
             NodoM<Cuadrante> aux, aux1;
             aux = origen;
-            aux1 = aux.getSiguiente();
-            origen = aux;
+            aux1 = aux.getArriba();
+            origen = aux1;
         
             while( aux != null ){
             
-                aux.setSiguiente(null);
-                aux1.setAnterior(null);
-                aux = aux.getArriba();
-                aux1 = aux.getArriba();
+                aux.setArriba(null);
+                aux1.setAbajo(null);
+                aux = aux.getSiguiente();
+                aux1 = aux1.getSiguiente();
             }
-        
+            
             y--;
         }else{
             y--;
+            x=0;
             origen = fin = null;
         }
             
@@ -323,7 +363,7 @@ public class Matriz {
         NodoM<Cuadrante> aux, aux1;
         aux = origen;
         
-        for(int j = 0; j < i ; j++)
+        for(int j = 0; j < i - 1 ; j++)
             aux = aux.getArriba();
         
         aux1 = aux.getArriba();
@@ -378,6 +418,8 @@ public class Matriz {
             
             x--;
         }else{
+            x--;
+            y=0;
             origen = fin = null;
         }
     }
@@ -436,9 +478,9 @@ public class Matriz {
     public void eliminarFila(int indice){
         if(indice == 1)
             eliminarPFila();
-        else if(indice == x)
+        else if(indice == y)
             eliminarUFila();
-        else if(indice > 1 && indice < x)
+        else if(indice > 1 && indice < y)
             this.eliinarIFila(indice);
         else
             System.err.println("No existe la final con indice " + indice);

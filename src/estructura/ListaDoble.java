@@ -279,27 +279,30 @@ public class ListaDoble {
     public Objeto extraerElemento(){
         NodoLD<Objeto> aux;
         if(cola && !vacia()){
-            aux = fin;
-            if(aux.getAnterior()!= null){
-                fin = aux.getAnterior();
-                fin.setSiguiente(null);
-                aux.setAnterior(null);
+            size--;
+            aux = origen;
+            if(aux.getSiguiente()!= null){
+                origen = aux.getSiguiente();
+                
+                origen.setAnterior(null);
+                aux.setSiguiente(null);
             }else
                 fin=origen=null;
-            
+            conteoTipo(aux.getElemento().tipo, -1);
             return aux.getElemento();
             
         }else if(!vacia()){
-            aux = origen;
+            size--;
+            aux = fin;
             
-            if(aux.getSiguiente() != null){
-                origen = aux.getSiguiente();
-                origen.setAnterior(null);
-                aux.setSiguiente(null);
+            if(aux.getAnterior() != null){
+                fin = aux.getAnterior();
+                fin.setSiguiente(null);
+                aux.setAnterior(null);
             }else{
                 origen = fin = null;
             }
-            
+            conteoTipo(aux.getElemento().tipo, -1);
             return aux.getElemento();
         }
             
@@ -317,11 +320,11 @@ public class ListaDoble {
     public Objeto preView(){
         
         if(cola && !vacia()){
-           System.out.println(origen.getElemento().getImagen());
+           //System.out.println(origen.getElemento().getImagen());
            return origen.getElemento();
            
         }else if(!vacia()){
-            System.out.println(fin.getElemento().getImagen());
+           // System.out.println(fin.getElemento().getImagen());
             return fin.getElemento();
         }
         
@@ -334,6 +337,10 @@ public class ListaDoble {
     
     public int getHeroe(){
         return heroe;
+    }
+    
+    public int getSize(){
+        return size;
     }
             
 }
