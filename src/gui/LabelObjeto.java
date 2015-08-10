@@ -20,11 +20,12 @@ import javax.swing.JLabel;
  */
 public class LabelObjeto extends JLabel implements MouseListener {
     private ImageIcon im;
-    private ListaDoble ld ;
+    private final ListaDoble ld ;
     
     public LabelObjeto(ListaDoble ld){
         this.ld = ld;
-        
+        setBounds(0, 0, 50, 50);
+        setIcon(this.ld.preView().getImagen());
     }
     
     public void setIcon(String dir){
@@ -44,7 +45,7 @@ public class LabelObjeto extends JLabel implements MouseListener {
         Objeto obj =ld.extraerElemento();
         if(!ld.vacia()){
             setIcon(ld.preView().getImagen());
-           // System.out.println(ld.preView().getImagen());
+            
         }else{
             setIcon("");
         }

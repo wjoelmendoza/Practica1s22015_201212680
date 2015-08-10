@@ -14,7 +14,6 @@ import estructura.Koopa;
 import estructura.ListaDoble;
 import estructura.Pared;
 import estructura.Suelo;
-import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -423,7 +422,6 @@ public class CargaObjetos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSueloActionPerformed
 
     private void btnCastilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCastilloActionPerformed
-        // TODO add your handling code here:
         if(!vacio(txtCastillo)){
             ld.agregar(new Castillo(txtCastillo.getText()));
             txtCastillo.setText("");
@@ -433,21 +431,17 @@ public class CargaObjetos extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCastilloActionPerformed
 
     private void btnVerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerActionPerformed
-        // TODO add your handling code here:
         Edicion ed =new Edicion(ld,this);
         ed.setVisible(true);
-        System.out.println(ld.vacia());
        
     }//GEN-LAST:event_btnVerActionPerformed
 
     private void btnContinuarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnContinuarActionPerformed
-        // TODO add your handling code here:
         if(ld.getCastillo()==1 && ld.getHeroe()==1){
             this.setVisible(false);
             SelecCompor c = new SelecCompor(this, true);
             c.setVisible(true);
             if(c.getOper()){
-                //System.out.println(c.getCola());
                 ld.setComportamiento(c.getCola());
                 CreacionTablero ctb= new CreacionTablero(ld);
                 ctb.setVisible(true);

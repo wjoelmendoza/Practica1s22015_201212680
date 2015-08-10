@@ -5,51 +5,46 @@
  */
 package gui;
 
+import estructura.Cuadro;
 import estructura.ListaDoble;
+import estructura.Matriz;
+import estructura.genericas.NodoM;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.geom.Line2D;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
  *
  * @author walter
  */
-public class PanelTablero extends JPanel implements MouseListener{
+public class PanelTablero extends JPanel {
     private Image fondo;
     private ListaDoble ld;
-    
-    public PanelTablero(ListaDoble ld){
+    private Matriz m;
+    private LabelObjeto obj;
+    Cuadro cua; 
+    Cuadro cua1;
+    Cuadro cua2;
+    private NodoM<Cuadro> aux;
+    private int pvx, pvy;
+        
+    public PanelTablero(ListaDoble ld, Matriz m, LabelObjeto obj){
+        pvx=16;
+        pvy = 12;
         this.setBounds(20, 150, 800, 600);
+        this.m = m;
         this.ld = ld;
+        this.obj = obj;
         this.setLayout(null);
         fondo= Toolkit.getDefaultToolkit().getImage(getClass().getResource("/recursos/fondo.jpeg"));
-        //JLabel as  = new JLabel("mouse listener");
-        //this.add(new JLabel("uno"));
-        //as.addMouseListener(this);
         this.setFocusable(true);
-//        JPanel jp = new JPanel();
-//        jp.setBounds(0, 0, 40, 40);
-//        jp.addMouseListener(this);
-//        jp.setFocusable(true);
-//        jp.setBackground(Color.red);
-//        add(jp);
-//        JPanel jp1 = new JPanel();
-//        jp1.setBounds(40,0, 40, 40);
-//        jp1.addMouseListener(this);
-//        jp1.setFocusable(true);
-//        jp1.setBackground(Color.red);
-//        add(jp1);
-        //add(as);
-        //this.addMouseListener(this);
-        //this.repaint();
+        aux = m.getNodo(0, 0);
+        adjMatriz();
     }
     
     @Override
@@ -59,45 +54,158 @@ public class PanelTablero extends JPanel implements MouseListener{
         g2d.drawImage(fondo,0,0,800,600, this);
         g2d.setStroke(new BasicStroke(3.0f));
         g2d.setColor(Color.YELLOW);
-        Line2D l = new Line2D.Float(0f,50,200,50);
-        g2d.draw(l);
+//     
+       grid(g2d);
+       graficarMatriz(g2d);
         
-        Line2D l2 = new Line2D.Float(0f,100,200,100);
-        g2d.draw(l2);
         
-        Line2D v = new Line2D.Float(50f,0f,50f,100f);
-        Line2D v1 = new Line2D.Float(100f,0f,100f,100f);
-        Line2D v2 = new Line2D.Float(150f,0f,150f,100f);
-        Line2D v3 = new Line2D.Float(200f,0f,200f,100f);
-        
-        g2d.draw(v);
-        g2d.draw(v1);
-        g2d.draw(v2);
-        g2d.draw(v3);
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-        System.out.println("solto el clic");
-        System.out.println(this.getAlignmentX()+","+this.getAlignmentY());
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        System.out.println("Entro el mouse");
-        System.out.println(this.getAlignmentX());
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
     }
     
+    private void grid(Graphics2D g2d){
+        if(m.getY() < 13 && m.getX() < 17){
+            for(int i = 0; i < m.getY(); i++){
+                g2d.draw(new Line2D.Float(0,550-50*i,50*m.getX(),550 - 50*i));
+            }
+            
+            for(int i = 0; i < m.getX(); i++){
+                g2d.draw(new Line2D.Float(50 + 50 * i, 600, 50 + 50 * i, 600- 50*m.getY()));
+            }
+        }else if(m.getY()< 13 && m.getX() > 16){
+            for(int i = 0; i < m.getY(); i++){
+                g2d.draw(new Line2D.Float(0,550-50*i,800, 550 - 50*i));
+            }
+            
+            for(int i = 0; i < 16; i++){
+                g2d.draw(new Line2D.Float(50 + 50*i,600,50+50*i, 600 - 50*m.getY()));
+            }
+        }else if(m.getX()<17 && m.getY()>12){
+            for(int i = 0; i < 13; i++){
+                g2d.draw(new Line2D.Float(0,550-50*i,50*m.getX(), 550 - 50*i));
+            }
+            
+            for(int i = 0; i < m.getX(); i++){
+                g2d.draw(new Line2D.Float(50 + 50 * i, 600, 50 + 50 * i, 0));
+            }
+        }else{
+            for(int i = 0; i < 13; i++){
+                g2d.draw(new Line2D.Float(0,550-50*i,800, 550 - 50*i));
+            }
+            
+            for(int i = 0; i < 16; i++){
+                g2d.draw(new Line2D.Float(50 + 50 * i, 600, 50 + 50 * i, 0));
+            }
+        }
+    }
+    
+    private void graficarMatriz(Graphics2D g2d){
+        Cuadro auxC;
+        NodoM<Cuadro> aux1,aux2;
+        aux1 = aux2 = aux;
+        
+        if(m.getX()<17&&m.getY()<13){
+            for(int j = 0; j < m.getY(); j++ ){
+                for(int i = 0; i < m.getX(); i++){
+                    auxC = aux1.getElemento();
+                    if(!auxC.vacio())
+                        g2d.drawImage(Toolkit.getDefaultToolkit().getImage( getClass().getResource(auxC.getImg())),50*i,550-50*j,50,50,this);
+                    
+                    aux1 = aux1.getSiguiente();
+                }
+                aux2 = aux2.getArriba();
+                aux1 = aux2;
+            }
+        }else if(m.getX()>16 && m.getY()<13){
+            for(int j = 0; j < m.getY(); j++ ){
+                for(int i = 0; i < 17; i++){
+                    auxC = aux1.getElemento();
+                    if(!auxC.vacio())
+                        g2d.drawImage(Toolkit.getDefaultToolkit().getImage( getClass().getResource(auxC.getImg())),50*i,550-50*j,50,50,this);
+                    
+                    aux1 = aux1.getSiguiente();
+                }
+                aux2 = aux2.getArriba();
+                aux1 = aux2;
+            }
+        }
+    }
+    
+    
+    public void adjMatriz(){
+        this.removeAll();
+        NodoM<Cuadro> aux1, aux2;
+        aux1 = aux;
+        aux2 = aux;
+        Cuadro auxC;
+        
+        if(m.getX()<17&&m.getY()<13){
+            for(int j = 0; j < m.getY(); j++ ){
+                for(int i = 0; i < m.getX(); i++){
+                    auxC = aux1.getElemento();
+                    auxC.setLabel(obj);
+                    auxC.setBounds(50*i, 550 - 50 * j, 50, 50);
+                    this.add(auxC);
+                    aux1 = aux1.getSiguiente();
+                }
+                aux2 = aux2.getArriba();
+                aux1 = aux2;
+            }
+        }else if(m.getX()>16 &&m.getY()<13){
+            
+            for(int j = 0; j < m.getY(); j++ ){
+                for(int i = 0; i < 17; i++){
+                    auxC = aux1.getElemento();
+                    auxC.setLabel(obj);
+                    auxC.setBounds(50*i, 550 - 50 * j, 50, 50);
+                    this.add(auxC);
+                    aux1 = aux1.getSiguiente();
+                }
+                aux2 = aux2.getArriba();
+                aux1 = aux2;
+            }
+            
+        }else if(m.getX()<17 && m.getY()>12){
+            for(int j = 0; j<13 ; j++ ){
+                for(int i = 0; i < m.getX(); i++){
+                    auxC = aux1.getElemento();
+                    auxC.setLabel(obj);
+                    auxC.setBounds(50*i, 550 - 50 * j, 50, 50);
+                    this.add(auxC);
+                    aux1 = aux1.getSiguiente();
+                }
+                aux2 = aux2.getArriba();
+                aux1 = aux2;
+            }
+        }else if(m.getX()>16 && m.getY()>12){
+             for(int j = 0; j<13 ; j++ ){
+                for(int i = 0; i < 17; i++){
+                    auxC = aux1.getElemento();
+                    auxC.setLabel(obj);
+                    auxC.setBounds(50*i, 550 - 50 * j, 50, 50);
+                    this.add(auxC);
+                    aux1 = aux1.getSiguiente();
+                }
+                aux2 = aux2.getArriba();
+                aux1 = aux2;
+            }
+        }
+    }
+    
+    public void moverXder(){
+        System.out.println(pvx+1);
+        if(pvx + 1 < m.getX()){
+            pvx++;
+            aux = aux.getSiguiente();
+            adjMatriz();
+            repaint();
+        }
+    }
+    
+   public void moverXIzq(){
+       if(aux.getAnterior() != null){
+           pvx--;
+           aux = aux.getAnterior();
+           adjMatriz();
+           repaint();
+       }
+   }
 }

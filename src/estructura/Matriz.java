@@ -15,21 +15,22 @@ import java.io.File;
  * @author walter
  */
 public class Matriz {
-    private NodoM<Cuadrante> origen,fin;
+    private NodoM<Cuadro> origen,fin;
     private int y;
     private int x;
     private GraphViz gv;
+    private ListaDoble ld;
     /**
      * construye una matriz de 2 filas y 4 columnas
      */
-    public Matriz(){
+    public Matriz(ListaDoble ld){
+        this.ld = ld;
         y = 2;
         x= 4;
-        NodoM<Cuadrante> aux1, nuevo;
+        NodoM<Cuadro> aux1, nuevo;
         int i;
         for ( i = 0; i < x; i++){
-            Cuadrante cua = new Cuadrante();
-            cua.setText("" + i + ",0");
+            Cuadro cua = new Cuadro(this.ld);
             nuevo = new NodoM(cua);
             if(!vacia()){
                 fin.setSiguiente(nuevo);
@@ -41,8 +42,7 @@ public class Matriz {
         aux1 = origen;
         
         for(i = 0; i < x; i++){
-            Cuadrante cua = new Cuadrante();
-            cua.setText("" + i + ",1" );
+            Cuadro cua = new Cuadro(this.ld);
             nuevo = new NodoM(cua);
             
             if(i!=0){
@@ -60,7 +60,7 @@ public class Matriz {
         }
         
     }
-    
+
     /**
      * Este metodo agrega una columna a la derecha de la ultima columna que se 
      * encuentra actualmente en la matris con las y filas que se encuentren en esta
@@ -68,13 +68,12 @@ public class Matriz {
     public void agregarColumna(){
         if(!vacia()){
             if( y > 0){
-                NodoM<Cuadrante> aux = fin, aux1;
+                NodoM<Cuadro> aux = fin, aux1;
                 while(aux.getAbajo()!=null)
                     aux = aux.getAbajo();
         
                 for(int j =0; j < y; j++){
-                    Cuadrante cua = new Cuadrante();
-                    cua.setText("" + x + "," + j);
+                    Cuadro cua = new Cuadro(this.ld);
                     aux1 = new NodoM(cua);
                     if(j != 0){
                         aux.setSiguiente(aux1);
@@ -93,9 +92,8 @@ public class Matriz {
                 x++;
             }else{
                 x++;
-                Cuadrante nuevo = new Cuadrante();
-                nuevo.setText(x+"," + 0);
-                NodoM<Cuadrante> cua =new NodoM<>(nuevo);
+                Cuadro nuevo = new Cuadro(this.ld);
+                NodoM<Cuadro> cua =new NodoM<>(nuevo);
                 cua.setAnterior(fin);
                 fin.setSiguiente(cua);
                 fin = cua;
@@ -104,9 +102,8 @@ public class Matriz {
         }else{
             x++;
             y++;
-            Cuadrante nuevo = new Cuadrante();
-            nuevo.setText("0,0");
-            NodoM<Cuadrante> nu = new NodoM<>(nuevo);
+            Cuadro nuevo = new Cuadro(this.ld);
+            NodoM<Cuadro> nu = new NodoM<>(nuevo);
             origen = fin = nu;
         }
         
@@ -120,14 +117,13 @@ public class Matriz {
     public void agregarFila(){
         if(!vacia()){
             if(x>0){
-                NodoM<Cuadrante> aux = origen,aux1;
+                NodoM<Cuadro> aux = origen,aux1;
         
                 while(aux.getArriba() != null)
                     aux = aux.getArriba();
         
                 for(int i = 0; i < x; i++){
-                    Cuadrante cua = new Cuadrante();
-                    cua.setText("" + i +"," + y);
+                    Cuadro cua = new Cuadro(this.ld);
                     aux1 = new NodoM<>(cua);
                     if(i != 0){
                         aux1.setAbajo(aux);
@@ -147,9 +143,8 @@ public class Matriz {
                 y++;
             }else{
                 y++;
-                Cuadrante nuevo = new Cuadrante();
-                nuevo.setText(0+"," + y);
-                NodoM<Cuadrante> cua =new NodoM<>(nuevo);
+                Cuadro nuevo = new Cuadro(this.ld);
+                NodoM<Cuadro> cua =new NodoM<>(nuevo);
                 cua.setAbajo(fin);
                 fin.setArriba(cua);
                 fin = cua;
@@ -157,9 +152,8 @@ public class Matriz {
         }else{
             y++;
             x++;
-            Cuadrante nuevo = new Cuadrante();
-            nuevo.setText("0,0");
-            NodoM<Cuadrante> nu = new NodoM<>(nuevo);
+            Cuadro nuevo = new Cuadro(this.ld);
+            NodoM<Cuadro> nu = new NodoM<>(nuevo);
             origen = fin = nu;
         }
     }
@@ -190,13 +184,13 @@ public class Matriz {
         gv.add(gv.start_graph());
         gv.addln("rankdir = BT;");
         gv.addln("rank = same;");
-        NodoM<Cuadrante> aux = origen;
-        NodoM<Cuadrante> aux2 = origen;
+        NodoM<Cuadro> aux = origen;
+        NodoM<Cuadro> aux2 = origen;
         
         if(origen !=null){
             for(int j = 0; j < y; j++){
                 for(int k = 0; k < x; k++){
-                    gv.addln("n"+ i +" [ label = \"" + aux.getElemento().getText() + "\"];");
+                    gv.addln("n"+ i +" [ label = \"" + aux.getElemento().graf()+ "\"];");
                     i++;
                     aux = aux.getSiguiente();
                 }
@@ -314,7 +308,7 @@ public class Matriz {
      */
     private void eliminarUFila(){
         if(!vacia()){
-            NodoM<Cuadrante> aux1,aux2;
+            NodoM<Cuadro> aux1,aux2;
             aux2 = fin.getAbajo();
             aux1 = fin;
             fin = aux2;
@@ -333,7 +327,7 @@ public class Matriz {
     */
     private void eliminarPFila(){
         if(y > 1){
-            NodoM<Cuadrante> aux, aux1;
+            NodoM<Cuadro> aux, aux1;
             aux = origen;
             aux1 = aux.getArriba();
             origen = aux1;
@@ -359,8 +353,8 @@ public class Matriz {
      * elimina la fila i-1
      * @param i representa graficamente el valor de la fila
      */
-    private void eliinarIFila(int i){
-        NodoM<Cuadrante> aux, aux1;
+    private void eliminarIFila(int i){
+        NodoM<Cuadro> aux, aux1;
         aux = origen;
         
         for(int j = 0; j < i - 1 ; j++)
@@ -385,7 +379,7 @@ public class Matriz {
      */
     private void elimarUColumna(){
         if( !vacia()){
-            NodoM<Cuadrante> aux1, aux2;
+            NodoM<Cuadro> aux1, aux2;
             
             aux1 = fin;
             aux2 = fin.getAnterior();
@@ -405,7 +399,7 @@ public class Matriz {
      */
     private void eliminarPColumna(){
         if(x>1){
-            NodoM<Cuadrante> aux1,aux2;
+            NodoM<Cuadro> aux1,aux2;
             aux1 = origen;
             aux2 = origen.getSiguiente();
             origen = aux2;
@@ -429,7 +423,7 @@ public class Matriz {
      */
     private void eliminarIColumna(int i ){
         
-        NodoM<Cuadrante> aux1 = origen, aux2;
+        NodoM<Cuadro> aux1 = origen, aux2;
         
         for(int j=0; j < i-1; j++){
             aux1 = aux1.getSiguiente();
@@ -481,9 +475,13 @@ public class Matriz {
         else if(indice == y)
             eliminarUFila();
         else if(indice > 1 && indice < y)
-            this.eliinarIFila(indice);
+            this.eliminarIFila(indice);
         else
             System.err.println("No existe la final con indice " + indice);
         
+    }
+    
+    public NodoM<Cuadro> getNodo(int i,int j){
+        return origen;
     }
 }

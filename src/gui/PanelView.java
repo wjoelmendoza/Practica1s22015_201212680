@@ -5,33 +5,34 @@
  */
 package gui;
 
+/*
+* se borraron algunos importo porque no se haran algunas implementaciones desde
+* aca
+*/
 import estructura.ListaDoble;
 import estructura.Objeto;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import javax.swing.JPanel;
 
 /**
  *
  * @author walter
  */
-class PanelView extends JPanel{ //implements MouseListener {
+class PanelView extends JPanel {
     ListaDoble ld;
     LabelObjeto lblo;
+    
     public PanelView(ListaDoble ld){
+        //la lineas marcarda con 1 son para que el mouse listener funcione danto clic
+        //sobre este panel
         this.setBounds(97, 17, 50, 50);
         this.ld = ld;
-        lblo = new LabelObjeto(ld);
-        lblo.setIcon(ld.preView().getImagen());
-        this.setLayout(null);
-        //lblo.addMouseListener(this);
-        this.addMouseListener(lblo);
-        lblo.setBounds(0, 0, 50, 50);
-        add(lblo);
+    //1 lblo = new LabelObjeto(ld);
+    //1 lblo.setIcon(ld.preView().getImagen());
+         this.setLayout(null);
+    //l blo.addMouseListener(this);
+    //1 this.addMouseListener(lblo);
+    //1 lblo.setBounds(0, 0, 50, 50);
+    //1 add(lblo);
     }
     
     public Objeto getObjeto(){
@@ -39,31 +40,6 @@ class PanelView extends JPanel{ //implements MouseListener {
         return ld.extraerElemento();
     }
     
-//    @Override
-//    public void paint(Graphics g){
-//        Graphics2D g2d = (Graphics2D) g;
-//        Image im = Toolkit.getDefaultToolkit().createImage(getClass().getResource(ld.preView().getImagen()));
-//        g2d.drawImage(im, 0, 0,40,40,this);
-//    }
+ //eliminado puesto que el key listener no lo aplicare aqui   
 
-//    @Override
-//    public void mouseClicked(MouseEvent e) {
-//        ld.extraerElemento();
-//    }
-//
-//    @Override
-//    public void mousePressed(MouseEvent e) {
-//    }
-//
-//    @Override
-//    public void mouseReleased(MouseEvent e) {
-//    }
-//
-//    @Override
-//    public void mouseEntered(MouseEvent e) {
-//    }
-//
-//    @Override
-//    public void mouseExited(MouseEvent e) {
-//    }
-}//
+}

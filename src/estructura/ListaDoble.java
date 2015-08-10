@@ -155,31 +155,31 @@ public class ListaDoble {
             NodoLD<Objeto> aux = origen;
 
             while(aux != null){
-                gv.addln("n"+i+"[ label= \""+aux.getElemento().getNombre()+"\n" + aux.getElemento().getTipo().getValue() +"\"];");
+                gv.addln("n"+i+"[ label= \""+aux.getElemento().getNombre()+"\n" + aux.getElemento().getTipo()+"\"];");
                 aux = aux.getSiguiente();
                 i++;
             }
             i=1;
             aux = origen.getSiguiente();
-            System.out.print("n0");
+            //System.out.print("n0");
             gv.add("n0");
             while(aux != null){
-                System.out.print("->n" + i);
+               // System.out.print("->n" + i);
                 gv.add("->n"+i);
                 i++;
                 aux = aux.getSiguiente();
                 
             }
-            System.out.print(";\n");
+            //System.out.print(";\n");
             gv.add(";\n");
             i--;
             
             while(i>0){
                 gv.add("n"+i+"->");
-                System.out.print("n"+i+"->");
+               // System.out.print("n"+i+"->");
                 i--;
             }
-            System.out.println("n0;");
+           // System.out.println("n0;");
             gv.add("n0;\n");
             gv.addln(gv.end_graph());
             
@@ -341,6 +341,30 @@ public class ListaDoble {
     
     public int getSize(){
         return size;
+    }
+    
+    public int getFichas(){
+        return ficha;
+    }
+    
+    public int getGooba(){
+        return goomba;
+    }
+    
+    public int getHongo(){
+        return hongo;
+    }
+    
+    public int getKoopa(){
+        return koopa;
+    }
+    
+    public int getPared(){
+        return pared;
+    }
+    
+    public int getSuelo(){
+        return suelo;
     }
             
 }
