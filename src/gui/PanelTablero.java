@@ -6,6 +6,7 @@
 package gui;
 
 import estructura.Cuadro;
+import estructura.Heroe;
 import estructura.ListaDoble;
 import estructura.Matriz;
 import estructura.genericas.NodoM;
@@ -31,10 +32,11 @@ public class PanelTablero extends JPanel {
     Cuadro cua1;
     Cuadro cua2;
     private NodoM<Cuadro> aux;
+    private Heroe mario;
     private int pvx, pvy;
         
     public PanelTablero(ListaDoble ld, Matriz m, LabelObjeto obj){
-        pvx=16;
+        pvx = 16;
         pvy = 12;
         this.setBounds(20, 150, 800, 600);
         this.m = m;
@@ -116,7 +118,31 @@ public class PanelTablero extends JPanel {
             }
         }else if(m.getX()>16 && m.getY()<13){
             for(int j = 0; j < m.getY(); j++ ){
-                for(int i = 0; i < 17; i++){
+                for(int i = 0; i < 16; i++){
+                    auxC = aux1.getElemento();
+                    if(!auxC.vacio())
+                        g2d.drawImage(Toolkit.getDefaultToolkit().getImage( getClass().getResource(auxC.getImg())),50*i,550-50*j,50,50,this);
+                    
+                    aux1 = aux1.getSiguiente();
+                }
+                aux2 = aux2.getArriba();
+                aux1 = aux2;
+            }
+        }else if(m.getX()<17 && m.getY()>12){
+            for(int j =0; j < 12; j++){
+                for(int i =0; i < m.getX(); i++ ){
+                    auxC = aux1.getElemento();
+                    if(!auxC.vacio())
+                        g2d.drawImage(Toolkit.getDefaultToolkit().getImage( getClass().getResource(auxC.getImg())),50*i,550-50*j,50,50,this);
+                    
+                    aux1 = aux1.getSiguiente();
+                }
+                aux2 = aux2.getArriba();
+                aux1 = aux2;
+            }
+        }else if(m.getX()>16 && m.getY() >12){
+            for(int j =0; j < 12; j++){
+                for(int i =0; i < 16; i++ ){
                     auxC = aux1.getElemento();
                     if(!auxC.vacio())
                         g2d.drawImage(Toolkit.getDefaultToolkit().getImage( getClass().getResource(auxC.getImg())),50*i,550-50*j,50,50,this);
@@ -152,7 +178,7 @@ public class PanelTablero extends JPanel {
         }else if(m.getX()>16 &&m.getY()<13){
             
             for(int j = 0; j < m.getY(); j++ ){
-                for(int i = 0; i < 17; i++){
+                for(int i = 0; i < 16; i++){
                     auxC = aux1.getElemento();
                     auxC.setLabel(obj);
                     auxC.setBounds(50*i, 550 - 50 * j, 50, 50);
@@ -164,7 +190,7 @@ public class PanelTablero extends JPanel {
             }
             
         }else if(m.getX()<17 && m.getY()>12){
-            for(int j = 0; j<13 ; j++ ){
+            for(int j = 0; j<12 ; j++ ){
                 for(int i = 0; i < m.getX(); i++){
                     auxC = aux1.getElemento();
                     auxC.setLabel(obj);
@@ -176,8 +202,8 @@ public class PanelTablero extends JPanel {
                 aux1 = aux2;
             }
         }else if(m.getX()>16 && m.getY()>12){
-             for(int j = 0; j<13 ; j++ ){
-                for(int i = 0; i < 17; i++){
+             for(int j = 0; j<12 ; j++ ){
+                for(int i = 0; i < 16; i++){
                     auxC = aux1.getElemento();
                     auxC.setLabel(obj);
                     auxC.setBounds(50*i, 550 - 50 * j, 50, 50);
@@ -191,8 +217,8 @@ public class PanelTablero extends JPanel {
     }
     
     public void moverXder(){
-        System.out.println(pvx+1);
-        if(pvx + 1 < m.getX()){
+        System.out.println(pvx);
+        if(pvx < m.getX()){
             pvx++;
             aux = aux.getSiguiente();
             adjMatriz();
@@ -207,5 +233,27 @@ public class PanelTablero extends JPanel {
            adjMatriz();
            repaint();
        }
+   }
+   
+   public void moverYArriba(){
+       if(pvy <m.getY()){
+           pvy ++;
+           aux = aux.getArriba();
+           adjMatriz();
+           repaint();
+       }
+   }
+   
+   public void moverYAbajo(){
+       if(aux.getAbajo()!=null){
+           pvy--;
+           aux = aux.getAbajo();
+           adjMatriz();
+           repaint();
+       }
+   }
+   
+   public Heroe getHero(){
+       return mario;
    }
 }

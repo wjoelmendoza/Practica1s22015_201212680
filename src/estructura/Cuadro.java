@@ -5,8 +5,8 @@
  */
 package estructura;
 
+import estructura.genericas.NodoM;
 import gui.LabelObjeto;
-import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JPanel;
@@ -19,12 +19,13 @@ public class Cuadro extends JPanel implements MouseListener {
     private Objeto obj;
     private ListaDoble ld;
     private LabelObjeto lblo;
+    private NodoM<Cuadro> posact;
+    private int px,py;
     
     public Cuadro(ListaDoble ld){
         this.ld = ld;
         this.addMouseListener(this);
         this.setBounds(60, 10, 50, 50);
-        this.setBackground(Color.GREEN);
     }
     
     
@@ -51,6 +52,7 @@ public class Cuadro extends JPanel implements MouseListener {
         }
     }
 
+    
     @Override
     public void mousePressed(MouseEvent e) {
     }
@@ -89,6 +91,34 @@ public class Cuadro extends JPanel implements MouseListener {
     
     public String getImg(){
         return obj.getImagen();
+    }
+    
+    public void setPos(NodoM<Cuadro> posact){
+        this.posact = posact;
+    }
+    
+    public void setX(int px){
+        this.px = px;
+    }
+    
+    public void setY(int py){
+        this.py = py;
+    }
+    
+    public int getPosX(){
+        return px;
+    }
+    
+    public int getPosY(){
+        return py;
+    }
+    
+    public Objeto getObjeto(){
+        return obj;
+    }
+    
+    public void setObj(Objeto obj){
+        this.obj = obj;
     }
     
 }

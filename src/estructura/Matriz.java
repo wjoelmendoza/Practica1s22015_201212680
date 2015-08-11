@@ -5,6 +5,7 @@
  */
 package estructura;
 
+import constantes.EConstantes;
 import graphViz.GraphViz;
 import estructura.genericas.NodoM;
 import java.io.File;
@@ -15,15 +16,19 @@ import java.io.File;
  * @author walter
  */
 public class Matriz {
+    private ListaEnemigo le;
     private NodoM<Cuadro> origen,fin;
+    private Heroe mario;
     private int y;
     private int x;
     private GraphViz gv;
     private ListaDoble ld;
     /**
      * construye una matriz de 2 filas y 4 columnas
+     * @param ld
      */
     public Matriz(ListaDoble ld){
+        le = new ListaEnemigo();
         this.ld = ld;
         y = 2;
         x= 4;
@@ -32,6 +37,7 @@ public class Matriz {
         for ( i = 0; i < x; i++){
             Cuadro cua = new Cuadro(this.ld);
             nuevo = new NodoM(cua);
+            cua.setPos(nuevo);
             if(!vacia()){
                 fin.setSiguiente(nuevo);
                 nuevo.setAnterior(fin);
@@ -44,6 +50,7 @@ public class Matriz {
         for(i = 0; i < x; i++){
             Cuadro cua = new Cuadro(this.ld);
             nuevo = new NodoM(cua);
+            cua.setPos(nuevo);
             
             if(i!=0){
                 fin.setSiguiente(nuevo);
@@ -74,6 +81,7 @@ public class Matriz {
         
                 for(int j =0; j < y; j++){
                     Cuadro cua = new Cuadro(this.ld);
+                    cua.setPos(aux);
                     aux1 = new NodoM(cua);
                     if(j != 0){
                         aux.setSiguiente(aux1);
@@ -94,6 +102,7 @@ public class Matriz {
                 x++;
                 Cuadro nuevo = new Cuadro(this.ld);
                 NodoM<Cuadro> cua =new NodoM<>(nuevo);
+                nuevo.setPos(cua);
                 cua.setAnterior(fin);
                 fin.setSiguiente(cua);
                 fin = cua;
@@ -104,6 +113,7 @@ public class Matriz {
             y++;
             Cuadro nuevo = new Cuadro(this.ld);
             NodoM<Cuadro> nu = new NodoM<>(nuevo);
+            nuevo.setPos(nu);
             origen = fin = nu;
         }
         
@@ -125,6 +135,7 @@ public class Matriz {
                 for(int i = 0; i < x; i++){
                     Cuadro cua = new Cuadro(this.ld);
                     aux1 = new NodoM<>(cua);
+                    cua.setPos(aux);
                     if(i != 0){
                         aux1.setAbajo(aux);
                         aux.setArriba(aux1);
@@ -145,6 +156,7 @@ public class Matriz {
                 y++;
                 Cuadro nuevo = new Cuadro(this.ld);
                 NodoM<Cuadro> cua =new NodoM<>(nuevo);
+                nuevo.setPos(cua);
                 cua.setAbajo(fin);
                 fin.setArriba(cua);
                 fin = cua;
@@ -154,6 +166,7 @@ public class Matriz {
             x++;
             Cuadro nuevo = new Cuadro(this.ld);
             NodoM<Cuadro> nu = new NodoM<>(nuevo);
+            nuevo.setPos(nu);
             origen = fin = nu;
         }
     }
@@ -206,8 +219,8 @@ public class Matriz {
         gv.add(";");
         gv.addln(gv.end_graph());
         
-        File ext = new File("Matriz.gif");
-        gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), "gif"), ext);
+        File ext = new File("Matriz.png");
+        gv.writeGraphToFile(gv.getGraph(gv.getDotSource(), "png"), ext);
     }
     /**
      * metodo auxiliar que agrega los punteros siguientes en la grafica
@@ -481,7 +494,111 @@ public class Matriz {
         
     }
     
+    /**
+     * 
+     * @param i la posicion en x del nodo
+     * @param j la posicion en y del nodo
+     * @return el nodo x,y 
+     * 
+     */
     public NodoM<Cuadro> getNodo(int i,int j){
-        return origen;
+        NodoM<Cuadro> aux = null;
+        if(i==0 && j==0)
+            
+            return origen;
+        
+        else if(i > 0 && j==0){
+        
+            aux= origen;
+            
+            for(int x =0; x < i; x++)
+                aux = aux.getSiguiente();
+            
+            return aux;
+            
+        }else if( i==0 && j>0){
+            
+            aux = origen;
+            
+            for(int y =0 ; y < j; y++)
+                aux = aux.getArriba();
+            
+            return aux;
+            
+        }else if( i>0 && j>0){
+            aux = origen;
+            
+            for(int x=0; x<i; x++)
+                aux = aux.getSiguiente();
+            
+            for(int y=0; y<j; x++)
+                aux = aux.getArriba();
+            
+            return aux;
+            
+        }else
+            return aux;
+    }
+    
+    /**
+     * Este metodo se  ejecuta juest antes de comenzar el juego para
+     * tener puntos de refetencias validos de la forma x,y
+     * +x hacia la derecha y +y hacia arriba
+     **/
+    public void asignarPosiciones(){
+        NodoM<Cuadro> aux=origen, aux2=origen;
+        int posx=0, posy=0;
+        while(aux !=null){
+            while(aux2!=null){
+                aux2.getElemento().setX(posx);
+                aux2.getElemento().setY(posy);
+                if(!aux2.getElemento().vacio())
+                    if(aux2.getElemento().getObjeto().getTipo()==EConstantes.HEROE){
+                        mario =(Heroe) aux2.getElemento().getObjeto();
+                        mario.setPosX(posx);
+                        mario.setPosY(posy);
+                        System.out.println("Mario encontrado");
+                    }else if (aux2.getElemento().getObjeto().getTipo() == EConstantes.GOOMBA){
+                        Goomba auxg = (Goomba) aux2.getElemento().getObjeto();
+                        auxg.setNodoInferior(aux2.getAbajo());
+                        le.addEnemigo(auxg);
+                    }else if(aux2.getElemento().getObjeto().getTipo() == EConstantes.KOOPA){
+                        Koopa auxk = (Koopa) aux2.getElemento().getObjeto();
+                        auxk.setNodoInferior(aux2.getAbajo());
+                        le.addEnemigo(auxk);
+                    }
+                aux2 = aux2.getSiguiente();
+                posx++;
+            }
+            aux = aux.getArriba();
+            aux2 = aux;
+            posx=0;
+            posy++;
+        }
+        
+    }
+    
+    /**
+     * llamar unicamente despues de haber realizado la asignacion de
+     * posiciones
+     * @return al heroe del juego
+     */
+    public Heroe getHeroe(){
+        return mario;
+    }
+    
+    /**
+     * 
+     */
+    public void activarHilos(){
+        le.activarHilos();
+    }
+    
+    public void pausarHilos(){
+        le.pausarHilos();
+    }
+    
+    public void continuarHilos(){
+        le.continuarHilos();
     }
 }
