@@ -30,6 +30,7 @@ public class TBJuego extends javax.swing.JFrame {
         this.m.activarHilos();
         lblNvida.setText("" + m.getHeroe().getVida());
         lblNPuntos.setText("" + m.getHeroe().getPuntos());
+        m.getHeroe().setLabel(lblNPuntos, lblNvida);
         new Thread(gm).start();
     }
 
@@ -155,9 +156,8 @@ public class TBJuego extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(664, Short.MAX_VALUE))
+                .addGap(0, 676, Short.MAX_VALUE))
         );
 
         pack();

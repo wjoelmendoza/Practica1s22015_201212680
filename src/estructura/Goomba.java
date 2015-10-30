@@ -39,7 +39,7 @@ public class Goomba extends Objeto implements Runnable {
                         moverDer();
                 }else
                     System.out.println("pausa");
-                sleep(1000);
+                sleep(500);
             }
         } catch (InterruptedException ex) {
             Logger.getLogger(Goomba.class.getName()).log(Level.SEVERE, null, ex);

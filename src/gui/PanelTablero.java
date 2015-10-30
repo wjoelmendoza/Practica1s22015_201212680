@@ -38,7 +38,7 @@ public class PanelTablero extends JPanel {
     public PanelTablero(ListaDoble ld, Matriz m, LabelObjeto obj){
         pvx = 16;
         pvy = 12;
-        this.setBounds(20, 150, 800, 600);
+        this.setBounds(20, 100, 800, 600);
         this.m = m;
         this.ld = ld;
         this.obj = obj;

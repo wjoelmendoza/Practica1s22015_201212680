@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,6 +22,7 @@ public class Heroe extends Objeto {
     private int puntos,vidas;
     private boolean play2;
     private NodoM<Cuadro> act;
+    private JLabel pts, vida;
     private boolean subiendo;
     public Heroe(String nombre){
         subiendo = false;
@@ -74,7 +76,12 @@ public class Heroe extends Objeto {
     public void setPlay(boolean play2){
         this.play2 = play2;
     }
-
+    
+    public void setLabel(JLabel pts, JLabel vida){
+        this.pts = pts;
+        this.vida = vida;
+    }
+    
     private void moverDerecha() {
         act = nodoInf.getArriba();
         NodoM<Cuadro> aux,aux2;
@@ -96,10 +103,15 @@ public class Heroe extends Objeto {
                 obj = aux2.getElemento().getObjeto();
                 switch(obj.getTipo().getValue()){
                     case 0:
+                        break;
                     case 1:
+                        break;
                     case 2:
+                        break;
                     case 3:
                         vidas--;
+                        vida.setText("" + vidas);
+                        vida.updateUI();
                         break;
                     case 4:
                         nodoInf = nodoInf.getSiguiente();
@@ -108,7 +120,9 @@ public class Heroe extends Objeto {
                         aux.getElemento().setObj(this);
                         act.getElemento().setObj(null);
                         puntos ++;
-                        if(aux2.getElemento().vacio())
+                        pts.setText("" + puntos);
+                        pts.updateUI();
+                        if(aux2.getElemento().vacio()|| aux2.getElemento().getObjeto().tipo.getValue()==5 ||aux2.getElemento().getObjeto().tipo.getValue()==4)
                             caida();
                         break;
                     case 5:
@@ -118,6 +132,8 @@ public class Heroe extends Objeto {
                         aux.getElemento().setObj(this);
                         act.getElemento().setObj(null);
                         vidas ++;
+                        vida.setText(""+ vidas);
+                        vida.updateUI();
                         if(aux2.getElemento().vacio())
                             caida();
                         break;
@@ -172,11 +188,15 @@ public class Heroe extends Objeto {
                                     switch(auxo.getTipo().getValue()){
                                         case 4:
                                             mario.puntos++;
+                                            pts.setText(""+puntos);
+                                            pts.updateUI();
                                             System.out.println(puntos);
                                             ax2.getElemento().setObj(null);
                                             break;
                                         case 5:
-                                            mario.vidas ++;
+                                            vidas ++;
+                                            vida.setText(""+vidas);
+                                            vida.updateUI();
                                             ax2.getElemento().setObj(null);
                                             break;
                                         case 1:
@@ -196,14 +216,19 @@ public class Heroe extends Objeto {
                                     
                                     }
                                 }else{
-                                    act = nodoInf.getArriba();
-                                    ax = nodoInf;
-                                    ax.getElemento().setObj(act.getElemento().getObjeto());
-                                    act.getElemento().setObj(null);
-                                    nodoInf = nodoInf.getAbajo();
-                                    ax2 = nodoInf;
+                                    if(nodoInf.getAbajo()!=null){
+                                        act = nodoInf.getArriba();
+                                        ax = nodoInf;
+                                        ax.getElemento().setObj(act.getElemento().getObjeto());
+                                        act.getElemento().setObj(null);
+                                        nodoInf = nodoInf.getAbajo();
+                                        ax2 = nodoInf;
+                                    }else{
+                                        JOptionPane.showMessageDialog(null,"Perdiste","Perder",JOptionPane.INFORMATION_MESSAGE);
+                                        System.exit(0);
+                                    }
                                 }
-                                sleep(200);
+                                sleep(125);
                             }
                         }catch (InterruptedException ex) {
                             Logger.getLogger(Heroe.class.getName()).log(Level.SEVERE, null, ex);
@@ -245,24 +270,30 @@ public class Heroe extends Objeto {
                         break;
                     case 3:
                         vidas--;
+                        vida.setText(""+vidas);
+                        vida.updateUI();
                         break;
                     case 4:
-                        nodoInf = nodoInf.getSiguiente();
+                        nodoInf = nodoInf.getAnterior();
                         aux2 = nodoInf;
-                        aux = act.getSiguiente();
+                        aux = act.getAnterior();
                         aux.getElemento().setObj(this);
                         act.getElemento().setObj(null);
                         puntos ++;
+                        pts.setText(""+puntos);
+                        pts.updateUI();
                         if(aux2.getElemento().vacio())
                             caida();
                         break;
                     case 5:
-                        nodoInf = nodoInf.getSiguiente();
+                        nodoInf = nodoInf.getAnterior();
                         aux2=nodoInf;
-                        aux = act.getSiguiente();
+                        aux = act.getAnterior();
                         aux.getElemento().setObj(this);
                         act.getElemento().setObj(null);
                         vidas ++;
+                        vida.setText(""+vidas);
+                        vida.updateUI();
                         if(aux2.getElemento().vacio())
                             caida();
                         break;
@@ -313,12 +344,12 @@ public class Heroe extends Objeto {
                         }
                         
                     
-                        sleep(250);
+                        sleep(150);
                         i++;
                     
                     }
                     Objeto auxo;
-                    sleep(300);
+                    sleep(200);
                     act = nodoInf.getArriba();
                     aux2 = nodoInf;
                     mario =(Heroe) act.getElemento().getObjeto();
@@ -331,10 +362,14 @@ public class Heroe extends Objeto {
                             switch(auxo.getTipo().getValue()){
                                 case 4:
                                     mario.puntos++;
+                                    pts.setText(""+puntos);
+                                    pts.updateUI();
                                     aux2.getElemento().setObj(null);
                                     break;
                                 case 5:
                                     mario.vidas ++;
+                                    vida.setText(""+vidas);
+                                    vida.updateUI();
                                     aux2.getElemento().setObj(null);
                                     break;
                                 case 1:
@@ -344,9 +379,15 @@ public class Heroe extends Objeto {
                                     run = false;
                                     break;
                                 case 2:
+                                    vidas--;
+                                    vida.setText(""+vidas);
+                                    vida.updateUI();
                                     aux2.getElemento().setObj(null);
                                     break;
                                 case 3:
+                                    vidas--;
+                                    vida.setText(""+vidas);
+                                    vida.updateUI();
                                     break;
                                 case 7:
                                     JOptionPane.showMessageDialog(null,"Ha ganado", "Gano",JOptionPane.INFORMATION_MESSAGE);
@@ -356,15 +397,19 @@ public class Heroe extends Objeto {
                                     
                             }
                         }else{
-                            act = nodoInf.getArriba();
-                            aux = nodoInf;
-                            aux.getElemento().setObj(act.getElemento().getObjeto());
-                            act.getElemento().setObj(null);
-                            nodoInf = nodoInf.getAbajo();
-                            aux2 = nodoInf;
+                            if(nodoInf.getAbajo()!=null){
+                                act = nodoInf.getArriba();
+                                aux = nodoInf;
+                                aux.getElemento().setObj(act.getElemento().getObjeto());
+                                act.getElemento().setObj(null);
+                                nodoInf = nodoInf.getAbajo();
+                                aux2 = nodoInf;
+                            }else{
+                                JOptionPane.showMessageDialog(null,"Perdiste","Perder",JOptionPane.INFORMATION_MESSAGE);
+                                System.exit(0);
+                            }
                         }
-                        System.out.println(i +" es esta?");
-                        sleep(250);
+                        sleep(125);
                         
                     }
                     subiendo = false;

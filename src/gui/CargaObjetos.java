@@ -366,7 +366,7 @@ public class CargaObjetos extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(!vacio(txtKoopa)){
             ld.agregar(new Koopa(txtKoopa.getText()));
-            txtKoopa.setText("");
+           // txtKoopa.setText("");
         }else
             msjError(lblkname);
     }//GEN-LAST:event_btnKoopaActionPerformed
@@ -375,7 +375,7 @@ public class CargaObjetos extends javax.swing.JFrame {
         // TODO add your handling code here:
         if(!vacio(txtGoomba)){
             ld.agregar(new Goomba(txtGoomba.getText()));
-            txtGoomba.setText("");
+           // txtGoomba.setText("");
         }else
             msjError(lblgname);
     }//GEN-LAST:event_btnGoombaActionPerformed
@@ -383,7 +383,7 @@ public class CargaObjetos extends javax.swing.JFrame {
     private void btnFichaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFichaActionPerformed
         if(!vacio(txtFicha)){
             ld.agregar(new Ficha(txtFicha.getText()));
-            txtFicha.setText("");
+           // txtFicha.setText("");
         }else
             msjError(lblfname);
     }//GEN-LAST:event_btnFichaActionPerformed
@@ -391,7 +391,7 @@ public class CargaObjetos extends javax.swing.JFrame {
     private void btnHongoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHongoActionPerformed
         if(!vacio(txtHongo)){
             ld.agregar(new Hongo(txtHongo.getText()));
-            txtHongo.setText("");
+          //  txtHongo.setText("");
         }else
             msjError(lblhname);
     }//GEN-LAST:event_btnHongoActionPerformed
@@ -399,7 +399,7 @@ public class CargaObjetos extends javax.swing.JFrame {
     private void btnMarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMarioActionPerformed
         if(!vacio(txtMario)){
             ld.agregar(new Heroe(txtMario.getText()));
-            txtMario.setText("");
+            //txtMario.setText("");
             btnMario.setEnabled(false);
         }else
             msjError(lblmname);
@@ -408,7 +408,7 @@ public class CargaObjetos extends javax.swing.JFrame {
     private void btnParedActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnParedActionPerformed
         if(!vacio(txtPared)){
             ld.agregar(new Pared(txtPared.getText()));
-            txtPared.setText("");
+            /*txtPared.setText("");*/
         }else
             msjError(lblpname);
     }//GEN-LAST:event_btnParedActionPerformed
@@ -416,7 +416,7 @@ public class CargaObjetos extends javax.swing.JFrame {
     private void btnSueloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSueloActionPerformed
         if(!vacio(txtSuelo)){
             ld.agregar(new Suelo(txtSuelo.getText()));
-            txtSuelo.setText("");
+            //txtSuelo.setText("");
         }else
             msjError(lblsname);
     }//GEN-LAST:event_btnSueloActionPerformed
@@ -424,7 +424,7 @@ public class CargaObjetos extends javax.swing.JFrame {
     private void btnCastilloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCastilloActionPerformed
         if(!vacio(txtCastillo)){
             ld.agregar(new Castillo(txtCastillo.getText()));
-            txtCastillo.setText("");
+           // txtCastillo.setText("");
             btnCastillo.setEnabled(false);
         }else
             msjError(lblcname);
